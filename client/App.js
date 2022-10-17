@@ -1,10 +1,18 @@
 import './styles.css';
 import React from 'react';
+import axios from 'axios';
 
 function App() {
+  const clickHandler = () => {
+    axios.get('http://localhost:8080/auth/')
+    .then((res) =>{
+      console.log(res);
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">Hello world</header>
+      <button onClick={clickHandler}>Login</button>
     </div>
   );
 }
