@@ -35,7 +35,6 @@ app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => 
   res.send('successful login!');
 });
 
-
 // Serve bundle.js file
 app.get(
   '/bundle.js',
