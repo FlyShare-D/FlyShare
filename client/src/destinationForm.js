@@ -1,20 +1,27 @@
 import React from 'react';
 import { updateDestination } from "./app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
+import TextField from '@mui/material/TextField';
 
 function DestinationForm () {
 
   const dispatch = useDispatch()
 
+  const handleOnchange = (e) => dispatch(updateDestination(e.target.value))
 
   return (
-    <div className='destination'>
-      <input type="text" placeholder="Input your destination"></input>
-      <button type="submit" onClick={(e)=> {
-        console.log('e: ', e)
-        dispatch(updateDestination(e))
+    <div>
+      <TextField 
+        variant="outlined" 
+        type="text" 
+        placeholder="Input your destination"
+        onChange={handleOnchange}
+      >
+      </TextField>
+      {/* <button type="submit" onClick={()=> {
+        dispatch(updateDestination())
         }}>
-          Submit</button>
+          Submit</button> */}
     </div>
   )
 }

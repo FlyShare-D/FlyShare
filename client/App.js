@@ -6,7 +6,7 @@ import Logo from "./src/logo";
 import SignIn from './src/signin';
 import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
-import FlightContainer from './src/flightsContainer';
+import FlightsContainer from './src/flightsContainer';
 import HotelsContainer from './src/hotelsContainer';
 import PoiContainer from './src/poiContainer';
 
@@ -20,13 +20,12 @@ function App() {
       <button onClick={()=>dispatch(increment())}>UpVote</button>
       <button onClick={()=>dispatch(decrement())}>DownVote</button>
       <DestinationForm></DestinationForm>
-      <Logo></Logo>
+      {/* <Logo></Logo>
       <SignIn></SignIn>
-      <FlightContainer>
-      </FlightContainer>
+      <FlightsContainer />
       <HotelsContainer></HotelsContainer>
       <PoiContainer></PoiContainer>
-      <DialogButton></DialogButton>
+      <DialogButton></DialogButton> */}
       
     </div>
   );
