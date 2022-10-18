@@ -1,5 +1,5 @@
-// import 'dotenv/config';
-// TypeScript Import Sorter
+import 'dotenv/config';
+
 import express, { NextFunction, Request, Response } from 'express';
 
 
@@ -13,6 +13,8 @@ import authRoutes from './routes/auth';
 import { authController } from './controllers/authController';
 import tripRouter from './routes/tripApi';
 import userRouter from './routes/userApi';
+import voteRouter from './routes/voteApi'
+
 import { ErrObject } from './types';
 
 const app = express();
@@ -51,9 +53,6 @@ app.get(
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
 );
 
-<<<<<<< HEAD
-
-=======
 app.use(
   '/',
   express.static(path.join(__dirname, '../client')),
@@ -61,7 +60,7 @@ app.use(
 
 // Routes for user and trips
 app.use('/trip', tripRouter);
->>>>>>> dev
+app.use('/vote', voteRouter)
 
 // unknown route handler
 app.use((req: Request, res: Response) => {
