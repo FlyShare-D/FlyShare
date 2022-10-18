@@ -2,14 +2,15 @@
 // TypeScript Import Sorter
 import express, { NextFunction, Request, Response } from 'express';
 
-import authRoutes from './routes/auth';
+
 import path from 'path';
 
 import session from 'express-session';
 
 import passport from 'passport';
+import authRoutes from './routes/auth';
 
-import {authController} from './controllers/authController';
+import { authController } from './controllers/authController';
 import tripRouter from './routes/tripApi';
 import userRouter from './routes/userApi';
 import { ErrObject } from './types';
@@ -17,7 +18,7 @@ import { ErrObject } from './types';
 const app = express();
 const PORT = 3000;
 
-app.use(session({secret: 'secret'}));
+app.use(session({ secret: 'secret' }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -26,15 +27,13 @@ app.use('/auth', authRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.get('/', (req: Request, res: Response) => {
   res.send('<a href="/auth/google">Login</a>');
 });
 
-
 app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => {
-  res.send('successful login!')
-})
+  res.send('successful login!');
+});
 
 
 // Serve bundle.js file
@@ -42,8 +41,6 @@ app.get(
   '/bundle.js',
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/bundle.js')),
 );
-
-
 
 // Serve base HTML file
 app.get(
