@@ -8,7 +8,7 @@ export default {
     const { userId } = res.locals
     const queryString = `
       UPDATE public.Flight
-      SET votes = votes + $4
+      SET votes = $4
       WHERE user_id = $1 AND destination = $2 AND flight_name = $3
        RETURNING (votes)
     `;
@@ -32,14 +32,14 @@ export default {
     const { userId } = res.locals
     const queryString = `
       UPDATE public.Hotel
-      SET votes = votes + $4
+      SET votes = $4
       WHERE user_id = $1 AND destination = $2 AND hotel_name = $3
        RETURNING (votes)
     `;
     const params = [userId, destination, hotelName, vote]
     try {
       const result = await db.query(queryString, params)
-      console.log('result in voteflight: ', result)
+      console.log('result in vote hotel: ', result)
       res.locals.hotelVotes = result.rows[0];
       return next();
     } catch (err) {
@@ -56,14 +56,14 @@ export default {
     const { userId } = res.locals
     const queryString = `
       UPDATE public.Hotel
-      SET votes = votes + $4
+      SET votes = $4
       WHERE user_id = $1 AND destination = $2 AND event_details = $3
        RETURNING (votes)
     `;
-    const params = [vote, userId, destination, eventDetails]
+    const params = [userId, destination, eventDetails, vote]
     try {
       const result = await db.query(queryString, params)
-      console.log('result in voteflight: ', result)
+      console.log('result in vote : ', result)
       res.locals.eventVotes = result.rows[0];
       return next();
     } catch (err) {
