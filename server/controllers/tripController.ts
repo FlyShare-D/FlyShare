@@ -5,7 +5,7 @@ import db from '../models/sqlModel';
 export default {
   addFlight: async (req: Request, res: Response, next: NextFunction) => {
     // console.log('tripController.addFlight')
-    const { destination, description, price } = req.body;
+    const { destination, flightName, price } = req.body;
     const { userId } = res.locals;
 
     const queryString = `
@@ -13,7 +13,7 @@ export default {
       VALUES ($1, $2, $3, $4, 0)
       RETURNING (user_id, destination, flight_name, price, votes)
     `;
-    const params = [userId, destination, description, price];
+    const params = [userId, destination, flightName, price];
 
     try {
       const result = await db.query(queryString, params);
@@ -30,7 +30,7 @@ export default {
   },
   addHotel: async (req: Request, res: Response, next: NextFunction) => {
     // console.log('tripController.addHotel')
-    const { destination, description, price } = req.body;
+    const { destination, hotelName, price } = req.body;
     const { userId } = res.locals;
 
     const queryString = `
@@ -38,7 +38,7 @@ export default {
     VALUES ($1, $2, $3, $4, 0)
     RETURNING (user_id, destination, hotel_name, price, votes)
   `;
-    const params = [userId, destination, description, price];
+    const params = [userId, destination, hotelName, price];
 
     try {
       const result = await db.query(queryString, params);
@@ -55,7 +55,7 @@ export default {
   },
   addEvent: async (req: Request, res: Response, next: NextFunction) => {
     // console.log('tripController.addEvent')
-    const { destination, description, price } = req.body;
+    const { destination, eventDetails, price } = req.body;
     const { userId } = res.locals;
 
     const queryString = `
@@ -63,7 +63,7 @@ export default {
     VALUES ($1, $2, $3, $4, 0)
     RETURNING (user_id, destination, event_details, price, votes)
     `;
-    const params = [userId, destination, description, price];
+    const params = [userId, destination, eventDetails, price];
 
     try {
       const result = await db.query(queryString, params);
