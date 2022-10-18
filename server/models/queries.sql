@@ -11,7 +11,7 @@ CREATE TABLE public.flight (
   user_id integer,
   destination varchar(255),
   flight_name varchar(255),
-  price money,
+  price integer,
   votes integer
 )
 
@@ -19,7 +19,7 @@ CREATE TABLE public.Hotel (
   user_id integer,
   destination varchar(255),
   hotel_name varchar(255),
-  price money,
+  price integer,
   votes integer
 )
 
@@ -27,7 +27,7 @@ CREATE TABLE public.Event (
   user_id integer,
   destination varchar(255),
   event_details varchar(255),
-  price money,
+  price integer,
   votes integer
 )
 
