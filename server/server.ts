@@ -24,6 +24,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/auth', authRoutes);
+// Routes for user and trips
+app.use('/trip', tripRouter);
+
+app.use('/user', userRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -47,8 +51,7 @@ app.get(
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
 );
 
-// Routes for user and trips
-app.use('/trip', tripRouter);
+
 
 // unknown route handler
 app.use((req: Request, res: Response) => {

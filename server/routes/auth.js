@@ -2,9 +2,12 @@ import express from 'express';
 
 import passport, { authController } from '../controllers/authController';
 
+import userController from '../controllers/userController';
+
 const router = express.Router();
 
-router.get('/', authController.isLoggedIn, (req, res) => {
+router.get('/', authController.isLoggedIn, userController.getUserId, (req, res) => {
+  console.log(req.body);
   return res.status(200);
 });
 
