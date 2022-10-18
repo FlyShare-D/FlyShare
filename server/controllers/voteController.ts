@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
-import db from '../models/tripModel';
+import db from '../models/sqlModel';
 
-export const votesController = {
+export default {
   voteFlight: async (req: Request, res: Response, next: NextFunction) => {
 
   },

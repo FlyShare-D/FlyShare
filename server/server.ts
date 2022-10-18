@@ -1,10 +1,13 @@
 // import 'dotenv/config';
 
 import express, { NextFunction, Request, Response } from 'express';
-
 import path from 'path';
+
+import tripRouter from './routes/tripApi';
+import userRouter from './routes/userApi';
 // import { GlobalError } from '../types'
 import { ErrObject } from './types';
+
 const app = express();
 const PORT = 3000;
 
@@ -20,6 +23,9 @@ app.get('/bundle.js', (req: Request, res: Response) => {
 app.get('*', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
+
+// Routes for user and trips
+app.use('/trip', tripRouter)
 
 // unknown route handler
 app.use((req: Request, res: Response) => {
