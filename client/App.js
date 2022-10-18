@@ -8,10 +8,10 @@ import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
 import FlightContainer from './src/flightsContainer';
 import HotelsContainer from './src/hotelsContainer';
-import PoiContainer from './src/poiContainer'
+import PoiContainer from './src/poiContainer';
 
 function App() {
-  const { count } = useSelector(state => state.counter)
+  const { count } = useSelector(state => state.counter);
   const dispatch = useDispatch();
   return (
     <div className="App">
@@ -19,9 +19,9 @@ function App() {
       <h3>The Vote Count is: {count} </h3>
       <button onClick={()=>dispatch(increment())}>UpVote</button>
       <button onClick={()=>dispatch(decrement())}>DownVote</button>
+      <DestinationForm></DestinationForm>
       <Logo></Logo>
       <SignIn></SignIn>
-      <DestinationForm></DestinationForm>
       <FlightContainer>
       </FlightContainer>
       <HotelsContainer></HotelsContainer>

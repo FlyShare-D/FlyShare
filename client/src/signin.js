@@ -1,12 +1,16 @@
 import React from 'react';
-//import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button';
+
 
 function SignIn() {
-  //later will have a fetch request on click
   return(
-    <div>
-      <button>Sign In With Google</button>
-    </div>
+  //later will have a fetch request on click
+  <div className='signIn'>
+  <Stack spacing={2} direction="row">
+  <Button variant="contained">Log In With Google</Button>
+</Stack>
+  </div>
   )
 }
 
