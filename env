@@ -1,0 +1,5 @@
+# Local Port
+PORT = 3000
+
+# Postgres URI
+PG_URI = postgres://nzxuhqkx:ettzPoHud-PC-7vNoLzXPFNc5yfYOHpX@peanut.db.elephantsql.com/nzxuhqkx

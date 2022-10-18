@@ -5,6 +5,7 @@ import path from 'path';
 
 import tripRouter from './routes/tripApi';
 import userRouter from './routes/userApi';
+import voteRouter from './routes/voteApi'
 // import { GlobalError } from '../types'
 import { ErrObject } from './types';
 
@@ -28,7 +29,7 @@ app.get(
 
 // Routes for user and trips
 app.use('/trip', tripRouter);
-
+app.use('/vote', voteRouter)
 // unknown route handler
 app.use((req: Request, res: Response) => {
   const defaultErr = {
