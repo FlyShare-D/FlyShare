@@ -6,7 +6,7 @@ const pool = new Pool({
 });
 
 export default {
-  query: (text: string, params: Array<string>, callback: () => void) => {
-    return pool.query(text, params, callback);
+  query: (text: string, params: Array<any>) => {
+    return pool.query(text, params);
   }
 };
