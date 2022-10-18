@@ -33,9 +33,9 @@ CREATE TABLE public.Event (
 
 INSERT INTO public.flight (user_id, destination, flight_name, price, votes)
 VALUES (0, 'Italy', 'Delta', 250, 0);
-INSERT INTO public.Hotel (user_id, destination, hotel_name, price, votes)
+INSERT INTO public.hotel (user_id, destination, hotel_name, price, votes)
 VALUES (0, 'Italy', 'Hilton', 500, 0);
-INSERT INTO public.Event (user_id, destination, evebt_details, price, votes)
+INSERT INTO public.event (user_id, destination, event_details, price, votes)
 VALUES (0, 'Italy', 'Sky Diving', 500, 0);
 
 DROP TABLE public.user
