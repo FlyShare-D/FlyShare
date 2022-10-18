@@ -1,43 +1,44 @@
-CREATE TABLE public.User (
-  UserId SERIAL PRIMARY KEY,
-  Email varchar(255),
-  Destination varchar(255)
+CREATE TABLE public.user (
+  user_id SERIAL PRIMARY KEY,
+  email varchar(255),
+  destination varchar(255)
 )
-INSERT INTO public.user (Email, Destination)
+INSERT INTO public.user (email, destination)
 VALUES ('chunhao@gmail.com', 'Italy');
 
 
-CREATE TABLE public.Flight (
-  UserId integer,
-  Destination varchar(255),
-  FlightName varchar(255),
-  Price integer,
-  Votes integer
+CREATE TABLE public.flight (
+  user_id integer,
+  destination varchar(255),
+  flight_name varchar(255),
+  price integer,
+  votes integer
 )
 
 CREATE TABLE public.Hotel (
-  UserId integer,
-  Destination varchar(255),
-  HotelName varchar(255),
-  Price integer,
-  Votes integer
+  user_id integer,
+  destination varchar(255),
+  hotel_name varchar(255),
+  price integer,
+  votes integer
 )
 
 CREATE TABLE public.Event (
-  UserId integer,
-  Destination varchar(255),
-  EventDetails varchar(255),
-  Price integer,
-  Votes integer
+  user_id integer,
+  destination varchar(255),
+  event_details varchar(255),
+  price integer,
+  votes integer
 )
 
-INSERT INTO public.Flight (UserId, Destination, FlightName, Price, Votes)
+INSERT INTO public.flight (user_id, destination, flight_name, price, votes)
 VALUES (0, 'Italy', 'Delta', 250, 0);
-INSERT INTO public.Hotel (UserId, Destination, HotelName, Price, Votes)
+INSERT INTO public.hotel (user_id, destination, hotel_name, price, votes)
 VALUES (0, 'Italy', 'Hilton', 500, 0);
-INSERT INTO public.Event (UserId, Destination, EventDetails, Price, Votes)
+INSERT INTO public.event (user_id, destination, event_details, price, votes)
 VALUES (0, 'Italy', 'Sky Diving', 500, 0);
 
-DROP TABLE public.Flight
-DROP TABLE public.Hotel
-DROP TABLE public.Event
+DROP TABLE public.user
+DROP TABLE public.flight
+DROP TABLE public.hotel
+DROP TABLE public.event

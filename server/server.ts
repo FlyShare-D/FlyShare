@@ -27,6 +27,11 @@ app.get(
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
 );
 
+app.use(
+  '/',
+  express.static(path.join(__dirname, '../client')),
+);
+
 // Routes for user and trips
 app.use('/trip', tripRouter);
 app.use('/vote', voteRouter)
