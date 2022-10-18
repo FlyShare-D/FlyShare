@@ -14,7 +14,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const FlightsContainer = () => {
-  const flights = [{id: 0, destination: "Germany", flightName: "Delta", price: 250}, {id: 1, destination: "Germany", flightName: "American Airlines", price: 350}];
+  const flights = [{id: 0, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, {id: 1, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}];
   const listItems = [];
   const dispatch = useDispatch();
 
