@@ -51,7 +51,17 @@ app.get(
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
 );
 
+<<<<<<< HEAD
 
+=======
+app.use(
+  '/',
+  express.static(path.join(__dirname, '../client')),
+);
+
+// Routes for user and trips
+app.use('/trip', tripRouter);
+>>>>>>> dev
 
 // unknown route handler
 app.use((req: Request, res: Response) => {
