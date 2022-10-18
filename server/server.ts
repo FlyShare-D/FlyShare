@@ -15,26 +15,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve bundle.js file
-app.get('/bundle.js', (req: Request, res: Response) => {
-  return res.status(200).sendFile(path.join(__dirname, '../dist/bundle.js'));
-});
+app.get(
+  '/bundle.js',
+  (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/bundle.js')),
+);
 
 // Serve base HTML file
-app.get('*', (req: Request, res: Response) => {
-  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
-});
+app.get(
+  '*',
+  (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
+);
 
 // Routes for user and trips
-app.use('/trip', tripRouter)
+app.use('/trip', tripRouter);
 
 // unknown route handler
 app.use((req: Request, res: Response) => {
   const defaultErr = {
     log: '404 Not Found, cannot get to route',
     status: 404,
-    message: '404 Not Found, cannot get to route' ,
+    message: '404 Not Found, cannot get to route',
   };
-  const errorObj = Object.assign({}, defaultErr);
+  const errorObj = { ...defaultErr };
   console.log(errorObj.log);
   return (res.status(errorObj.status).json(errorObj.message));
 });
@@ -45,7 +47,7 @@ app.use((err: ErrObject, req: Request, res: Response, next: NextFunction) => {
     status: 500,
     message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign({}, defaultErr, err);
+  const errorObj = { ...defaultErr, ...err };
   console.log(errorObj.log);
   return next(res.status(errorObj.status).json(errorObj.message));
 });
