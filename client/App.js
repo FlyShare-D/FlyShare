@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function App() {
   const clickHandler = () => {
-    axios.get('http://localhost:8080/auth/')
+    axios.get('http://localhost:8080/auth/google')
     .then((res) =>{
       console.log(res);
     })
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={clickHandler}>Login</button>
+      {/* <button onClick={clickHandler}>Login</button> */}
     </div>
   );
 }
