@@ -4,17 +4,19 @@ import db from '../models/sqlModel';
 
 export default {
   voteFlight: async (req: Request, res: Response, next: NextFunction) => {
-    const {vote, userId, destination, flightName} = req.body
+    const { destination, flightName, vote, } = req.body
+    const { userId } = res.locals
     const queryString = `
       UPDATE public.Flight
-      SET Votes = ?
-      WHERE UserID = ? AND destination = ? flightName = ?
+      SET votes = votes + $4
+      WHERE user_id = $1 AND destination = $2 AND flight_name = $3
+       RETURNING (votes)
     `;
-    const params = [vote, userId, destination, flightName]
+    const params = [userId, destination, flightName, vote]
     try {
       const result = await db.query(queryString, params)
-      console.log('result in voteflight: ', result)
-      res.locals.flightVotes = result.rows;
+      console.log('result in voteflight: ', result.rows[0])
+      res.locals.flightVotes = result.rows[0];
       // console.log('Flight Added!', res.locals.flight);
       return next();
     } catch (err) {
@@ -26,17 +28,19 @@ export default {
     }
   },
   voteHotel: async (req: Request, res: Response, next: NextFunction) => {
-    const { vote, userId, destination, hotelName } = req.body
+    const { vote, destination, hotelName } = req.body
+    const { userId } = res.locals
     const queryString = `
       UPDATE public.Hotel
-      SET Votes = ?
-      WHERE UserID = ? AND destination = ? hotelName = ?
+      SET votes = votes + $4
+      WHERE user_id = $1 AND destination = $2 AND hotel_name = $3
+       RETURNING (votes)
     `;
-    const params = [vote, userId, destination, hotelName]
+    const params = [userId, destination, hotelName, vote]
     try {
       const result = await db.query(queryString, params)
       console.log('result in voteflight: ', result)
-      res.locals.hotelVotes = result.rows;
+      res.locals.hotelVotes = result.rows[0];
       return next();
     } catch (err) {
       return next({
@@ -48,17 +52,19 @@ export default {
   },
 
   voteEvent: async (req: Request, res: Response, next: NextFunction) => {
-    const { vote, userId, destination, eventDetails } = req.body
+    const { vote, destination, eventDetails } = req.body
+    const { userId } = res.locals
     const queryString = `
-      UPDATE public.Event
-      SET Votes = ?
-      WHERE UserID = ? AND destination = ? AND eventDetails = ?
+      UPDATE public.Hotel
+      SET votes = votes + $4
+      WHERE user_id = $1 AND destination = $2 AND event_details = $3
+       RETURNING (votes)
     `;
     const params = [vote, userId, destination, eventDetails]
     try {
       const result = await db.query(queryString, params)
       console.log('result in voteflight: ', result)
-      res.locals.eventVotes = result.rows;
+      res.locals.eventVotes = result.rows[0];
       return next();
     } catch (err) {
       return next({
