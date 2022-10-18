@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from 'express';
 
 import tripController from '../controllers/tripController';
-import userCcontroller from '../controllers/userController';
+import userController from '../controllers/userController';
 
 const router: Router = express.Router();
 
@@ -16,7 +16,7 @@ const router: Router = express.Router();
  */
 router.post(
   '/flight',
-  userCcontroller.getUserId,
+  userController.getUserId,
   tripController.addFlight,
   (req: Request, res: Response) => res.status(201).send(res.locals.flight),
 );
@@ -32,7 +32,7 @@ router.post(
  */
 router.post(
   '/hotel',
-  userCcontroller.getUserId,
+  userController.getUserId,
   tripController.addHotel,
   (req: Request, res: Response) => res.status(201).send(res.locals.hotel),
 );
@@ -48,7 +48,7 @@ router.post(
  */
 router.post(
   '/event',
-  userCcontroller.getUserId,
+  userController.getUserId,
   tripController.addEvent,
   (req: Request, res: Response) => res.status(201).send(res.locals.event),
 );

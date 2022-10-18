@@ -37,9 +37,6 @@ app.use(
   '/stylesheets',
   express.static(path.join(__dirname, '../client/stylesheets')),
 );
-app.get('/', (req: Request, res: Response) => {
-  res.send('<a href="/auth/google">Login</a>');
-});
 
 app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => {
   res.send('successful login!');
