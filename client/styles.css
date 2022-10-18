@@ -1,0 +1,8 @@
+.outerBox {
+  display: flex;
+  border-style: groove;
+  height: 200px;
+  width: 200px;
+  border: black 2px solid;
+}
+

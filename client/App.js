@@ -1,10 +1,33 @@
-import './styles.css';
+// import './styles.css';
 import React from 'react';
+import { decrement, increment } from "./src/app/voteCounter";
+import { useSelector, useDispatch } from 'react-redux';
+import Logo from "./src/logo";
+import SignIn from './src/signin';
+import DestinationForm from './src/destinationForm';
+import DialogButton from "./src/dialogButton";
+import FlightContainer from './src/flightsContainer';
+import HotelsContainer from './src/hotelsContainer';
+import PoiContainer from './src/poiContainer'
 
 function App() {
+  const { count } = useSelector(state => state.counter)
+  const dispatch = useDispatch();
   return (
     <div className="App">
-      <header className="App-header">Hello world</header>
+      <h1 className="App-header">FlyShare</h1>
+      <h3>The Vote Count is: {count} </h3>
+      <button onClick={()=>dispatch(increment())}>UpVote</button>
+      <button onClick={()=>dispatch(decrement())}>DownVote</button>
+      <Logo></Logo>
+      <SignIn></SignIn>
+      <DestinationForm></DestinationForm>
+      <FlightContainer>
+      </FlightContainer>
+      <HotelsContainer></HotelsContainer>
+      <PoiContainer></PoiContainer>
+      <DialogButton></DialogButton>
+      
     </div>
   );
 }
