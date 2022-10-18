@@ -14,11 +14,19 @@ router.post(
 );
 
 // Route to add a hotel to the Hotel table in DB
-router.post('/hotel', (req, res) => res.status(201).send('Hotel submitted!'));
+router.post(
+  '/hotel',
+  userCcontroller.getUserId,
+  tripController.addHotel,
+  (req: Request, res: Response) => res.status(201).send(res.locals.hotel),
+);
 
 // Route to add an event to the Event table in DB
-router.post('/event', (req, res) => {
-  res.status(201).send('Event submitted!');
-});
+router.post(
+  '/event',
+  userCcontroller.getUserId,
+  tripController.addEvent,
+  (req: Request, res: Response) => res.status(201).send(res.locals.event),
+);
 
 export default router;
