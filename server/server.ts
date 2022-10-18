@@ -14,6 +14,11 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+  '/stylesheets',
+  express.static(path.join(__dirname, '../client/stylesheets')),
+);
+
 // Serve bundle.js file
 app.get(
   '/bundle.js',
@@ -24,11 +29,6 @@ app.get(
 app.get(
   '*',
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
-);
-
-app.use(
-  '/',
-  express.static(path.join(__dirname, '../client')),
 );
 
 // Routes for user and trips
