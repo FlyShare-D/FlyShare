@@ -10,7 +10,7 @@ const router: Router = express.Router();
  * Request object example:
  *    {
  *      "destination": "Germany",
- *      "description": "Delta",
+ *      "flightName": "Delta",
  *      "price": 1000}
  *    }
  */
@@ -26,7 +26,7 @@ router.post(
  * Request object example:
  *    {
  *      "destination": "Germany",
- *      "description": "Hilton",
+ *      "hotelName": "Hilton",
  *      "price": 1000}
  *    }
  */
@@ -42,7 +42,7 @@ router.post(
  * Request object example:
  *    {
  *      "destination": "Germany",
- *      "description": "Sky Diving",
+ *      "eventDetails": "Sky Diving",
  *      "price": 1000}
  *    }
  */
