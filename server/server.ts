@@ -3,19 +3,13 @@
 import express, { NextFunction, Request, Response } from 'express';
 
 import { IGetUserAuthInfoRequest } from './types';
-// import authRoutes from './routes/auth'
+import authRoutes from './routes/auth'
 import path from 'path';
 const passport = require('passport');
 const session = require('express-session');
 // import { GlobalError } from '../types'
-require('./controllers/authController')
-
-
-
-function isLoggedIn(req:IGetUserAuthInfoRequest, res:Response, next: NextFunction){
-  req.user ? next() : res.sendStatus(401);
-}
-
+// require('./controllers/authController')
+import passport, {authController} from './controllers/authController';
 
 
 const app = express();
@@ -26,7 +20,7 @@ app.use(session({secret: 'secret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use('/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -35,23 +29,8 @@ app.get('/', (req: Request, res: Response) => {
   res.send('<a href="/auth/google">Login</a>');
 });
 
-app.get('/auth/google',
-  passport.authenticate('google', {scope: ['email', 'profile'] })
-)
 
-
-app.get('/google/callback',
-  passport.authenticate('google', {
-    successRedirecet: '/homepage',
-    failureReirect: '/auth/failure'
-  })
-)
-
-app.get('/auth/failure', (req: Request, res:Response) =>{
-  res.send('unsuccessful login...')
-})
-
-app.get('/homepage', isLoggedIn, (req: Request, res:Response) => {
+app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => {
   res.send('successful login!')
 })
 
