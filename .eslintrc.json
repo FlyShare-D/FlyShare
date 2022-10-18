@@ -6,9 +6,7 @@
         "node": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "airbnb-typescript"
+        "plugin:react/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "overrides": [

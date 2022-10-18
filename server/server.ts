@@ -33,9 +33,10 @@ app.use('/user', userRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('<a href="/auth/google">Login</a>');
-});
+app.use(
+  '/stylesheets',
+  express.static(path.join(__dirname, '../client/stylesheets')),
+);
 
 app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => {
   res.send('successful login!');
@@ -51,11 +52,6 @@ app.get(
 app.get(
   '*',
   (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
-);
-
-app.use(
-  '/',
-  express.static(path.join(__dirname, '../client')),
 );
 
 // Routes for user and trips

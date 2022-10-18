@@ -10,6 +10,10 @@
     ".": "NODE_ENV=development webpack && npm run start"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.9",
+    "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
