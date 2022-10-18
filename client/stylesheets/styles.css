@@ -56,3 +56,10 @@
   align-items: center;
   
 }
+
+.vote {
+  background-color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+}

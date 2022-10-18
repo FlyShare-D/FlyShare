@@ -17,15 +17,15 @@ function App() {
     <div className="App">
       <h1 className="App-header">FlyShare</h1>
       <h3>The Vote Count is: {count} </h3>
-      <button onClick={()=>dispatch(increment())}>UpVote</button>
-      <button onClick={()=>dispatch(decrement())}>DownVote</button>
-      <DestinationForm></DestinationForm>
-      {/* <Logo></Logo>
-      <SignIn></SignIn>
+      {/* <button onClick={()=>dispatch(increment())}>UpVote</button>
+      <button onClick={()=>dispatch(decrement())}>DownVote</button> */}
+      {/* <DestinationForm></DestinationForm> */}
+      {/* <Logo></Logo> */}
+      {/* <SignIn></SignIn> */}
       <FlightsContainer />
-      <HotelsContainer></HotelsContainer>
-      <PoiContainer></PoiContainer>
-      <DialogButton></DialogButton> */}
+      {/* <HotelsContainer></HotelsContainer> */}
+      {/* <PoiContainer></PoiContainer> */}
+      {/* <DialogButton></DialogButton> */}
       
     </div>
   );
