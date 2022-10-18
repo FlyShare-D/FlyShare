@@ -1,9 +1,9 @@
-const passport = require('passport');
+import passport from 'passport';
 
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+// const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
 import 'dotenv/config';
-// import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 

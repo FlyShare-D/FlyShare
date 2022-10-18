@@ -1,16 +1,18 @@
 // import 'dotenv/config';
-
+// TypeScript Import Sorter
 import express, { NextFunction, Request, Response } from 'express';
 
-import { IGetUserAuthInfoRequest } from './types';
-import authRoutes from './routes/auth'
+import authRoutes from './routes/auth';
 import path from 'path';
-const passport = require('passport');
-const session = require('express-session');
-// import { GlobalError } from '../types'
-// require('./controllers/authController')
-import passport, {authController} from './controllers/authController';
 
+import session from 'express-session';
+
+import passport from 'passport';
+
+import {authController} from './controllers/authController';
+import tripRouter from './routes/tripApi';
+import userRouter from './routes/userApi';
+import { ErrObject } from './types';
 
 const app = express();
 const PORT = 3000;
@@ -36,15 +38,43 @@ app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => 
 
 
 // Serve bundle.js file
-app.get('/bundle.js', (req: Request, res: Response) => {
-  return res.status(200).sendFile(path.join(__dirname, '../dist/bundle.js'));
-});
+app.get(
+  '/bundle.js',
+  (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/bundle.js')),
+);
 
 
 
 // Serve base HTML file
-app.get('*', (req: Request, res: Response) => {
-  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+app.get(
+  '*',
+  (req: Request, res: Response) => res.status(200).sendFile(path.join(__dirname, '../dist/index.html')),
+);
+
+// Routes for user and trips
+app.use('/trip', tripRouter);
+
+// unknown route handler
+app.use((req: Request, res: Response) => {
+  const defaultErr = {
+    log: '404 Not Found, cannot get to route',
+    status: 404,
+    message: '404 Not Found, cannot get to route',
+  };
+  const errorObj = { ...defaultErr };
+  console.log(errorObj.log);
+  return (res.status(errorObj.status).json(errorObj.message));
+});
+// global error handler
+app.use((err: ErrObject, req: Request, res: Response, next: NextFunction) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = { ...defaultErr, ...err };
+  console.log(errorObj.log);
+  return next(res.status(errorObj.status).json(errorObj.message));
 });
 
 // Start server
