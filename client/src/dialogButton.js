@@ -49,6 +49,19 @@ const DialogButton = () => {
     dispatch(updateFlightIcon(e.target.checked));
     
   }
+
+  const handleChangeHotelIcon = (e) => {
+    console.log('Hotel Changed: ', e.target.checked);
+    dispatch(updateHotelIcon(e.target.checked));
+  }
+
+  const handleChangeEventIcon = (e)=> {
+    console.log('Event Changed: ', e.target.checked);
+    dispatch(updateEvents(e.target.checked));
+  }
+
+ 
+
   
   return (
     <div className='dialog'>
@@ -68,18 +81,18 @@ const DialogButton = () => {
         checkedIcon={<AirplaneTicketIcon />}
         onChange={handleChangeFlightIcon}
       />
-      {/* <Checkbox
+      <Checkbox
         {...label}
-        icon={<BedroomChildOutlinedIcon 
-        onClick={handleChangeFlightIcon}/>}
+        icon={<BedroomChildOutlinedIcon />} 
         checkedIcon={<BedroomChildIcon />}
+        onChange={handleChangeHotelIcon}
       />
-            <Checkbox
+      <Checkbox
         {...label}
-        icon={<LocalActivityOutlinedIcon 
-        onClick={handleChangeIcon}/>}
+        icon={<LocalActivityOutlinedIcon />}
         checkedIcon={<LocalActivityIcon/>}
-      /> */}
+        onChange={handleChangeEventIcon}
+      />
           </div>
           <TextField
             autoFocus
@@ -135,13 +148,6 @@ const [open, setOpen] = React.useState(false);
     
   }
   
-  // const handleChangeEventIcon = (e) => {
-  //   dispatch(updateEventIcon(e.checked))
-  // }
-
-  // const handleChangeHotelIcon = (e) => {
-  //   dispatch(updateHotelIcon(e.checked))
-  // }
 
   // const handlechangeInfo = (e) => {
   //   //updates the store when they update the textfield with the information

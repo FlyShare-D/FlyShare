@@ -19,7 +19,6 @@ function App() {
       <h3>The Vote Count is: {count} </h3>
       <button onClick={()=>dispatch(increment())}>UpVote</button>
       <button onClick={()=>dispatch(decrement())}>DownVote</button>
-      <button onClick={()=>dispatch(updateFlightIcon(true))}>UpVote2</button>
       <DestinationForm></DestinationForm>
       <DialogButton></DialogButton>
       {/* <Logo></Logo>
