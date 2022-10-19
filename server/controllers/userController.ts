@@ -4,12 +4,9 @@ import db from '../models/sqlModel';
 
 export default {
   getUserId: async (req: any, res: Response, next: NextFunction) => {
-    console.log('userController.getUserId');
-    console.log('req', req.body);
-    // const { email } = req.body;
-    const email = 'chunhao@gmail.com';
+    // console.log('userController.getUserId');
+    const { email } = req.user;
     console.log('email', email);
-    // const { email } = req.body; // MLCK need to extract from req object passport
 
     const queryString = `
     SELECT user_id FROM public.user
@@ -30,8 +27,7 @@ export default {
     }
   },
   addUser: async (req: any, res: Response, next: NextFunction) => {
-    // const req.User.email;
-    const email = 'mlamchamkee@gmail.com'
+    const { email } = req.user;
 
     const queryString = `
     INSERT INTO public.user (email)
@@ -58,19 +54,16 @@ export default {
   },
   getFlights: async (req: any, res: Response, next: NextFunction) => {
     console.log('userController.getFlights');
-    // console.log('req', req.body);
-    const userID = res.locals.userId;
+    const userId = res.locals.userId;
 
     const queryString = `
     SELECT * FROM public.flight
     WHERE user_id=$1
     `;
-
-    const params = [userID];
+    const params = [userId];
 
     try {
       const result = await db.query(queryString, params);
-      // console.log('result', result);
       res.locals.flights = result.rows;
       return next();
     } catch (err) {
@@ -83,19 +76,16 @@ export default {
   },
   getHotels: async (req: any, res: Response, next: NextFunction) => {
     console.log('userController.getHotels');
-    // console.log('req', req.body);
-    const userID = res.locals.userId;
+    const userId = res.locals.userId;
 
     const queryString = `
     SELECT * FROM public.hotel
     WHERE user_id=$1
     `;
-
-    const params = [userID];
+    const params = [userId];
 
     try {
       const result = await db.query(queryString, params);
-      // console.log('result', result);
       res.locals.hotels = result.rows;
       return next();
     } catch (err) {
@@ -108,15 +98,13 @@ export default {
   },
   getEvents: async (req: any, res: Response, next: NextFunction) => {
     console.log('userController.getHotels');
-    // console.log('req', req.body);
-    const userID = res.locals.userId;
+    const userId = res.locals.userId;
 
     const queryString = `
     SELECT * FROM public.event
     WHERE user_id=$1
     `;
-
-    const params = [userID];
+    const params = [userId];
 
     try {
       const result = await db.query(queryString, params);
