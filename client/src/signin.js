@@ -31,13 +31,12 @@ const LogOut = () => {
 
 function SignIn() {
   const { isLoggedIn } = useSelector((state) => state.counter);
-  // const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
-  // const dispatch = useDispatch();
+  const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // dispatch(decrement());
-  //   dispatch(setLoggedIn(updatedIsLoggedIn));
-  // })
+  useEffect(() => {
+    dispatch(setLoggedIn(updatedIsLoggedIn));
+  })
 
   console.log('isLoggedIn', isLoggedIn)
 
