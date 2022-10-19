@@ -142,10 +142,18 @@ export const counterSlice = createSlice({
   // }
   extraReducers: (builder) => {
     builder.addCase(fetchInitial.fulfilled, (state, action) => {
-      console.log(action);
-      state.flights = action.payload.flights;
-      state.hotels = action.payload.hotels;
-      state.events = action.payload.events;
+
+      const flights = action.payload.flights;
+      flights.forEach((el => el["flightName"] = el.flight_name))
+      state.flights = flights
+
+      const hotels = action.payload.hotels;
+      hotels.forEach((el => el["hotelName"] = el.hotel_name))
+      state.hotels = hotels
+
+      const events = action.payload.events;
+      events.forEach((el => el["eventDetails"] = el.event_details))
+      state.events = events
     });
   },
 })
