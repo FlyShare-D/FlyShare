@@ -10,12 +10,15 @@ import session from 'express-session';
 import passport from 'passport';
 import authRoutes from './routes/auth';
 
+import cors from 'cors';
+
 import { authController } from './controllers/authController';
 import tripRouter from './routes/tripApi';
 import userRouter from './routes/userApi';
 import voteRouter from './routes/voteApi'
 
 import { ErrObject } from './types';
+
 
 const app = express();
 const PORT = 3000;
