@@ -1,43 +1,114 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   count: 0,
   destination: '',
   isLoggedIn: false,
+  // flights: [
+  //   {id: 1, destination: "Germany", flightName: "Delta", price: 250, votes: 0},
+  //   {id: 2, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}
+  // ],
+  userId: 0,
   flights: [],
   hotels: [],
   events: [],
+  flights: [],
+  /*
+  */
+  // hotels: [
+  //   {id: 1, destination: "Germany", hotelName: "Hilton", price: 250, votes: 0}, 
+  //   {id: 2, destination: "Germany", hotelName: "Mariott", price: 350, votes: 0}
+  // ],
+  // events: [
+  //   {id: 1, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 2, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
+  //   {id: 3, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 4, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
+  //   {id: 5, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 6, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 2},
+  //   {id: 7, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 8, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 3},
+  //   {id: 9, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 10, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 5},
+  // ],
+  // if(isLoggedIn){
+    // fetchGetID
+    // const data = fetchInitial(userId);
+  // },
+  
   information: '',
   price: 0,
   flightIcon: false,
   hotelIcon: false,
   eventIcon: false,
 }
+// const fetchInitial = () => {
+//   fetch(`http://localhost:3000/user/`).then((res) => {
+//     return res.json()
+//   }).then((data) => {
 
+//     console.log('data in fetch initial ', data)
+
+//     for (let i of data) {
+//       flights.push()
+//       hotels.push(i)
+//       events.push(i)
+//     }
+//     // return data
+//   })
+// }
+export const fetchInitial = createAsyncThunk(
+  'counter/fetchInitial', 
+  async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/user/');
+      console.log('FETCH RES', response)
+      return response.data
+    } catch (err) {
+      console.log('error in fetchning initial state: ', err)
+    }
+})
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.count += 1
-    },
-    decrement: (state) => {
-      state.count -= 1
-    },
     updateDestination: (state, action) => {
       state.destination = action.payload
+    },
+    updateVotes: (state, action) => {
+      // this is where we will update state.flights
+      const { id, category, voteIncrement } = action.payload;
+      if (category === 'flight') {
+        const ids = state.flights.map((flight) => flight.id);
+        const index = ids.indexOf(Number(id))
+        state.flights[index].votes += voteIncrement
+        state.flights.sort((a, b) => b.votes - a.votes)
+      }
+      if (category === 'hotel') {
+        const ids = state.hotels.map((hotel) => hotel.id);
+        const index = ids.indexOf(Number(id))
+        state.hotels[index].votes += voteIncrement
+        state.hotels.sort((a, b) => b.votes - a.votes)
+      }
+      if (category === 'event') {
+        const ids = state.events.map((event) => event.id);
+        const index = ids.indexOf(Number(id))
+        state.events[index].votes += voteIncrement
+        state.events.sort((a, b) => b.votes - a.votes)
+      }
     },
     setLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload
     },
     updateFlights: (state, action) => {
-      state.flights = action.payload
+      state.flights.push(action.payload);
     },
     updateHotels: (state, action) => {
-      state.hotels = action.payload
+      state.hotels.push(action.payload);
     },
     updateEvents: (state, action) => {
-      state.events = action.payload
+      state.events.push(action.payload);
     },
     updateFlightIcon: (state, action) => {
       state.flightIcon = action.payload
@@ -62,8 +133,31 @@ export const counterSlice = createSlice({
       state.price = 0;
     }
   },
+  // extraReducers: {
+  //   [fetchInitial.fulfilled]: (state, {payload, meta}) => {
+  //     state.flights = payload.flights;
+  //     state.hotels = payload.hotels;
+  //     state.events = payload.events;
+  //   }
+  // }
+  extraReducers: (builder) => {
+    builder.addCase(fetchInitial.fulfilled, (state, action) => {
+
+      const flights = action.payload.flights;
+      flights.forEach((el => el["flightName"] = el.flight_name))
+      state.flights = flights
+
+      const hotels = action.payload.hotels;
+      hotels.forEach((el => el["hotelName"] = el.hotel_name))
+      state.hotels = hotels
+
+      const events = action.payload.events;
+      events.forEach((el => el["eventDetails"] = el.event_details))
+      state.events = events
+    });
+  },
 })
 
-export const { increment, decrement, updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon} = counterSlice.actions;
+export const { updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon, updateVotes, setLoggedIn} = counterSlice.actions;
 
 export default counterSlice.reducer;

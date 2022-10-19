@@ -11,7 +11,11 @@ router.post('/:email', (req, res) => {
 
 // Route to get all flights, hotels, and events for a user
 router.get('/', userController.getUserId, userController.getFlights, userController.getHotels, userController.getEvents, (req, res) => {
-  res.status(200).json(res.locals.events);
+  res.status(200).json({
+    flights: res.locals.flights,
+    hotels: res.locals.hotels,
+    events: res.locals.events
+  });
 });
 
 export default router;

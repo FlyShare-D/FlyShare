@@ -5,12 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Checkbox from '@mui/material/Checkbox';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AirplaneTicketOutlinedIcon from '@mui/icons-material/AirplaneTicketOutlined';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import BedroomChildOutlinedIcon from '@mui/icons-material/BedroomChildOutlined';
@@ -19,7 +14,8 @@ import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import { updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon } from "./app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
-import { decrement } from "./app/voteCounter";
+import StyledFab from './styledFab'
+import axios from 'axios'
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -51,43 +47,34 @@ const DialogButton = () => {
   }
 
   const handleChangeHotelIcon = (e) => {
-    // console.log('Hotel Changed: ', e.target.checked);
     dispatch(updateHotelIcon(e.target.checked));
   }
 
   const handleChangeEventIcon = (e)=> {
-    // console.log('Event Changed: ', e.target.checked);
     dispatch(updateEventIcon(e.target.checked));
   }
 
   const handleChangeInformation = (e) => {
-    // console.log('heyooo: ', e.target.value);
-    // console.log('flightIcon: ', {flightIcon});
-    // console.log('hotelIcon: ', {hotelIcon});
-    // console.log('eventsIcon: ', {eventIcon});
     dispatch(updateInformation(e.target.value));
   }
 
   const handleChangePrice = (e) => {
-    // console.log('heyooo: ', e.target.value);
-    // console.log('flightIcon: ', {flightIcon});
-    // console.log('hotelIcon: ', {hotelIcon});
-    // console.log('eventsIcon: ', {eventIcon});
     dispatch(updatePrice(Number(e.target.value)));
   }
 
   const handleSubmit = async () => {
-    // const { flightIcon, hotelIcon, eventIcon, destination, information, price } = useSelector((state) => state.counter);
     let endpoint = '' 
     if (flightIcon) endpoint += 'flight';
     if (hotelIcon) endpoint += 'hotel';
     if (eventIcon) endpoint += 'event';
-
     let description = '' 
     if (flightIcon) description += 'flightName';
     if (hotelIcon) description += 'hotelName';
     if (eventIcon) description += 'eventDetails';
-
+    
+    console.log('DESTINATION', destination);
+    console.log('Price', price);
+    // console.log('flightName: ', flightName);
     const body = {
       destination: destination,
       price: price
@@ -97,25 +84,39 @@ const DialogButton = () => {
     console.log('BODY: ', body);
     console.log('ENDPOINT: ', endpoint);
 
-    await fetch(`http://localhost:3000/trip/${endpoint}`), {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(body)
+    try {
+      await axios.post(`trip/${endpoint}/`, body)
+    } catch (error) {
+      console.log(error)
+    }
+    
+    
+    // await fetch(`http://localhost:3000/trip/${endpoint}`), {
+    //   method: 'POST', 
+    //   headers: {
+    //     "Content-Type": 'application/json',
+    //     "Accept": 'application/json',
+    //   },
+    //   body: JSON.stringify(body)
+    // }
+    
+    if(endpoint === 'flight') {
+      const newBody = Object.assign(body, {id: flights.length + 1, votes: 0})
+      dispatch(updateFlights(newBody));
+    } else if (endpoint === 'hotel') {
+      dispatch(updateHotels({id: hotels.length + 1, destination: destination, hotelName: information,price: price, votes: 0}));
+    } else if (endpoint === 'event') {
+      dispatch(updateEvents({id: events.length + 1, destination: destination, eventDetails: information,price: price, votes: 0}))
+    } else {
     }
 
     dispatch(clearIcon());
     setOpen(false); 
   }
-
   
   return (
     <div className='dialog'>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        +
-      </Button>
+      <StyledFab onClick={handleClickOpen}/>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText>
@@ -124,18 +125,21 @@ const DialogButton = () => {
           <div>
       <Checkbox
         {...label}
+        sx={{color: 'grey'}}
         icon={<AirplaneTicketOutlinedIcon  />}
         checkedIcon={<AirplaneTicketIcon />}
         onChange={handleChangeFlightIcon}
       />
       <Checkbox
         {...label}
+        sx={{color: 'grey'}}
         icon={<BedroomChildOutlinedIcon />} 
         checkedIcon={<BedroomChildIcon />}
         onChange={handleChangeHotelIcon}
       />
       <Checkbox
         {...label}
+        sx={{color: 'grey'}}
         icon={<LocalActivityOutlinedIcon />}
         checkedIcon={<LocalActivityIcon/>}
         onChange={handleChangeEventIcon}
@@ -219,7 +223,7 @@ const [open, setOpen] = React.useState(false);
       />
       
           </div>
-          <TextField
+          <TextField 
             autoFocus
             margin="dense"
             id="name"

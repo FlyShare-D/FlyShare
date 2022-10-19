@@ -1,34 +1,36 @@
-// import './styles.css';
-import React from 'react';
-import { decrement, increment, updateFlightIcon } from "./src/app/voteCounter";
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Logo from "./src/logo";
-import SignIn from './src/signin';
 import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
-import FlightsContainer from './src/flightsContainer';
-import HotelsContainer from './src/hotelsContainer';
-import PoiContainer from './src/poiContainer';
+import TripContainer from './src/tripContainer';
+import AppNavBar from './src/AppNavbar'
+import Landing from './src/landing'
+import { setLoggedIn } from './src/app/voteCounter';
+import { fetchInitial } from './src/app/voteCounter';
 
 function App() {
-  const { count } = useSelector(state => state.counter);
+  const { isLoggedIn } = useSelector((state) => state.counter);
+  const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
   const dispatch = useDispatch();
-  return (
+
+  useEffect(() => {
+    dispatch(setLoggedIn(updatedIsLoggedIn));
+    
+  })
+  if (isLoggedIn) return (
     <div className="App">
-      <h1 className="App-header">FlyShare</h1>
-      <h3>The Vote Count is: {count} </h3>
-      <button onClick={()=>dispatch(increment())}>UpVote</button>
-      <button onClick={()=>dispatch(decrement())}>DownVote</button>
-      <DestinationForm></DestinationForm>
-      <SignIn></SignIn>
-      <DialogButton></DialogButton>
-      {/* <Logo></Logo>
-      <SignIn></SignIn>
-      <FlightsContainer />
-      <HotelsContainer></HotelsContainer>
-      <PoiContainer></PoiContainer>
-       */}
-      
+      <AppNavBar/>
+      <DestinationForm />
+      <TripContainer category={"flight"} />
+      <TripContainer category={"hotel"} />
+      <TripContainer category={"event"} />
+      <DialogButton />
+    </div>
+  );
+  if (!isLoggedIn) return (
+    <div className="Guest">
+      <AppNavBar/>
+      <Landing />
     </div>
   );
 }

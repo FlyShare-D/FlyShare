@@ -5,8 +5,9 @@ import db from '../models/sqlModel';
 export default {
   getUserId: async (req: any, res: Response, next: NextFunction) => {
     // console.log('userController.getUserId');
-    const { email } = req.user;
-    console.log('email', email);
+    let email;
+    if (req.user) email = req.user.email;
+    // console.log('email', email);
 
     const queryString = `
     SELECT user_id FROM public.user
@@ -16,8 +17,8 @@ export default {
 
     try {
       const result = await db.query(queryString, params);
-      console.log('result', result)
-      // res.locals.userId = result.rows[0].user_id;
+      // console.log('result', result)
+      res.locals.userId = result.rows[0]?.user_id;
       return next();
     } catch (err) {
       return next({
@@ -33,16 +34,17 @@ export default {
     const queryString = `
     INSERT INTO public.user (email)
     VALUES ($1)
-    RETURNING (user_id, email)
+    RETURNING (user_id)
     `;
     const params = [email];
 
-    if (res.locals.userId !== undefined)
+    // console.log('RES LOCALS ', res.locals)
+    if (res.locals.userId === undefined)
     {
       try {
       const result = await db.query(queryString, params);
-      // console.log('result', result);
-      res.locals.flights = result.rows;
+      // console.log('Adding User', result);
+      res.locals.userId = result.rows[0].user_id;
       return next();
       } catch (err) {
         return next({
@@ -52,6 +54,7 @@ export default {
         });
       }
     }
+    return next();
   },
   getFlights: async (req: any, res: Response, next: NextFunction) => {
     console.log('userController.getFlights');
@@ -98,7 +101,7 @@ export default {
     }
   },
   getEvents: async (req: any, res: Response, next: NextFunction) => {
-    console.log('userController.getHotels');
+    console.log('userController.getEvents');
     const userId = res.locals.userId;
 
     const queryString = `

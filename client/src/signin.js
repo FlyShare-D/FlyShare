@@ -6,6 +6,7 @@ import fetch from 'node-fetch'
 import { Cookie } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoggedIn, decrement } from './app/voteCounter';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const LogIn = () => {
   const handleClick = async () =>{
@@ -31,13 +32,12 @@ const LogOut = () => {
 
 function SignIn() {
   const { isLoggedIn } = useSelector((state) => state.counter);
-  // const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
-  // const dispatch = useDispatch();
+  const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // dispatch(decrement());
-  //   dispatch(setLoggedIn(updatedIsLoggedIn));
-  // })
+  useEffect(() => {
+    dispatch(setLoggedIn(updatedIsLoggedIn));
+  })
 
   console.log('isLoggedIn', isLoggedIn)
 

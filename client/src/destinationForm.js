@@ -10,7 +10,7 @@ function DestinationForm () {
   const handleOnchange = (e) => dispatch(updateDestination(e.target.value))
 
   return (
-    <div>
+    <div className="destination">
       <TextField 
         variant="outlined" 
         type="text" 
