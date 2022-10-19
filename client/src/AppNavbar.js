@@ -24,6 +24,10 @@ const ResponsiveAppBar = () => {
     // setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    sessionStorage.clear();
+  }
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl" >
@@ -31,7 +35,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ width: 40, height: 40 }} />
           <img alt="logo" src="../assets/flyshareicon.png" style={{ height: 60 }} />
           <Box sx={{ }}>
-              <Button variant="contained" disableElevation>
+              <Button variant="contained" disableElevation onClick={handleLogout}>
                 {isLoggedIn && <LogoutIcon />}
               </Button>
             <Menu

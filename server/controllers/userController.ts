@@ -37,7 +37,7 @@ export default {
     `;
     const params = [email];
 
-    if (res.locals.userId !== undefined)
+    if (res.locals.userId === undefined)
     {
       try {
       const result = await db.query(queryString, params);

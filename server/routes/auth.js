@@ -22,7 +22,7 @@ router.get('/google/callback',
     failureRedirect: '/failure',
   }),
   userController.getUserId,
-  // userController.addUser,
+  userController.addUser,
   (req, res) =>{
     console.log('request: ', req.user)
     res.cookie('email', req.user.email);
