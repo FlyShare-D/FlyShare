@@ -1,4 +1,5 @@
 import React from 'react';
+import { decrement, increment, updateVotes } from "./app/voteCounter";
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -16,20 +17,33 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 const FlightsContainer = () => {
   const flights = [{id: 0, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, {id: 1, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}];
   const listItems = [];
+  const {count} = useSelector(state => state.counter);
   const dispatch = useDispatch();
 
   const handleUpVote = (e) => {
     // upvoting needs to trigger two actions:
     // 1) a post request to the database to update the vote count
     // 2) update state of the slice
-    console.log('Upvoted', e.target.id)
+    const payload = {
+      category: 'flight',
+      id: e.target.id,
+      votes: 1,
+    }
+    dispatch(updateVotes(payload));
+    console.log('Upvoted', e.target.id);
   }
 
   const handleDownVote = (e) => {
     // upvoting needs to trigger two actions:
     // 1) a post request to the database to update the vote count
     // 2) update state of the slice
-    console.log('Downvoted', e.target.id)
+    const payload = {
+      category: 'flight',
+      id: e.target.id,
+      votes: -1,
+    }
+    dispatch(updateVotes(payload));
+    console.log('Downvoted', e.target.id);
   }
 
   for (const flight of flights) {
@@ -37,11 +51,10 @@ const FlightsContainer = () => {
       <ListItem sx={{justifyContent: 'center'}}>
         <ListItemText primary={flight.flightName} />
         <Stack direction="row" spacing={1} sx={{display: 'flex', alignItems: 'center'}}>
-          <span>{flight.price}</span>
           <button id={`${flight.id}`} className='vote' onClick={handleUpVote}>
             &#8679;
           </button>
-          <span>Count</span>
+          <span>{flight.votes}</span>
           <button id={`${flight.id}`} className='vote' onClick={handleDownVote}>
             &#8681;
           </button>
