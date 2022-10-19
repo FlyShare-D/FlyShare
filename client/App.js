@@ -18,7 +18,7 @@ function App() {
         <AppNavBar/>
         <DestinationForm />
         {/* <Logo></Logo> */}
-        {/* <SignIn></SignIn> */}
+        <SignIn></SignIn>
         <TripContainer category={"flight"} />
         <TripContainer category={"hotel"} />
         <TripContainer category={"event"} />

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   count: 0,
   destination: '',
+  isLoggedIn: false,
   flights: [
     {id: 1, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, 
     {id: 2, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}
@@ -49,7 +50,6 @@ export const counterSlice = createSlice({
     updateVotes: (state, action) => {
       // this is where we will update state.flights
       const { id, category, voteIncrement } = action.payload;
-
       if (category === 'flight') {
         const ids = state.flights.map((flight) => flight.id);
         const index = ids.indexOf(Number(id))
@@ -68,6 +68,9 @@ export const counterSlice = createSlice({
         state.events[index].votes += voteIncrement
         state.events.sort((a, b) => b.votes - a.votes)
       }
+    },
+    setLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload
     },
     updateFlights: (state, action) => {
       state.flights = action.payload
