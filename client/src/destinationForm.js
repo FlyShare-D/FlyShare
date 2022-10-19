@@ -12,6 +12,7 @@ function DestinationForm () {
   return (
     <div>
       <TextField 
+        classname="destination"
         variant="outlined" 
         type="text" 
         placeholder="Input your destination"

@@ -96,6 +96,19 @@ const DialogButton = () => {
       },
       body: JSON.stringify(body)
     }
+    if(endpoint === 'flight') {
+      dispatch(updateFlights({destination: {destination}, flightName: {information},price: {price}, votes: 0}));
+      console.log('CHOSE FLIGHT');
+    } else if (endpoint === 'hotel') {
+      dispatch(updateHotels({destination: {destination}, hotelName: {information},price: {price}, votes: 0}));
+      console.log('CHOSE HOTEL');
+    } else if (endpoint === 'event') {
+      dispatch(updateEvents({destination: {destination}, eventDetails: {information},price: {price}, votes: 0}))
+      console.log('CHOSE EVENT');
+    } else {
+      console.log('choose an icon');
+    }
+
     dispatch(clearIcon());
     setOpen(false); 
   }

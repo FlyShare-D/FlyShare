@@ -6,6 +6,7 @@ import fetch from 'node-fetch'
 import { Cookie } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoggedIn, decrement } from './app/voteCounter';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const LogIn = () => {
   const handleClick = async () =>{
@@ -50,6 +51,10 @@ function SignIn() {
     {isLoggedIn && <LogOut />}
     
 </Stack>
+<Button>
+  <GoogleIcon />
+  Login With Google
+</Button>
   </div>
   )
 }

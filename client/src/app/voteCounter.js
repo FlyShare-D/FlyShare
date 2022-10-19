@@ -5,11 +5,21 @@ const initialState = {
   destination: '',
   isLoggedIn: false,
   flights: [
-    {id: 1, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, 
+    {id: 1, destination: "Germany", flightName: "Delta", price: 250, votes: 0},
     {id: 2, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}
   ],
+  userId: 0,
   // flights: [],
   // hotels: [],
+  // events: [],
+  // flights: [],
+  /*
+  if(isLoggedIn){
+    
+  }
+  const data = fetchInitial(userId);
+
+  */
   hotels: [
     {id: 1, destination: "Germany", hotelName: "Hilton", price: 250, votes: 0}, 
     {id: 2, destination: "Germany", hotelName: "Mariott", price: 350, votes: 0}
@@ -26,12 +36,20 @@ const initialState = {
     {id: 9, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
     {id: 10, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 5},
   ],
-  // events: [],
+  
   information: '',
   price: 0,
   flightIcon: false,
   hotelIcon: false,
   eventIcon: false,
+}
+const fetchInitial = (userId) => {
+  fetch(`http://localhost:3000/user/${userId}`).then((res) => {
+    return res.json()
+  }).then((data) => {
+    console.log('data in fetch initial ', data)
+    return data
+  })
 }
 
 export const counterSlice = createSlice({
@@ -73,13 +91,20 @@ export const counterSlice = createSlice({
       state.isLoggedIn = action.payload
     },
     updateFlights: (state, action) => {
-      state.flights = action.payload
+      const deepClone = [...state.flights];
+      const altered = deepClone.push(action.payload);
+      state.flights = altered;
+      // state.flights = action.payload
     },
     updateHotels: (state, action) => {
-      state.hotels = action.payload
+      const deepCloneTwo = [...state.hotels];
+      const alteredTwo = deepCloneTwo.push(action.payload);
+      state.hotels = alteredTwo;
     },
     updateEvents: (state, action) => {
-      state.events = action.payload
+      const deepCloneThree = [...state.events];
+      const alteredThree = deepCloneThree.push(action.payload);
+      state.events = alteredThree;
     },
     updateFlightIcon: (state, action) => {
       state.flightIcon = action.payload
