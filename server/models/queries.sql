@@ -8,6 +8,7 @@ VALUES ('chunhao@gmail.com', 'Italy');
 
 
 CREATE TABLE public.flight (
+  id SERIAL,
   user_id integer,
   destination varchar(255),
   flight_name varchar(255),
@@ -16,6 +17,7 @@ CREATE TABLE public.flight (
 )
 
 CREATE TABLE public.Hotel (
+  id SERIAL,
   user_id integer,
   destination varchar(255),
   hotel_name varchar(255),
@@ -24,6 +26,7 @@ CREATE TABLE public.Hotel (
 )
 
 CREATE TABLE public.Event (
+  id SERIAL,
   user_id integer,
   destination varchar(255),
   event_details varchar(255),
