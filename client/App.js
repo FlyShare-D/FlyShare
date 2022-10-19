@@ -1,6 +1,6 @@
 // import './styles.css';
 import React from 'react';
-import { decrement, increment } from "./src/app/voteCounter";
+import { decrement, increment, updateFlightIcon } from "./src/app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
 import Logo from "./src/logo";
 import SignIn from './src/signin';
@@ -20,12 +20,13 @@ function App() {
       <button onClick={()=>dispatch(increment())}>UpVote</button>
       <button onClick={()=>dispatch(decrement())}>DownVote</button>
       <DestinationForm></DestinationForm>
+      <DialogButton></DialogButton>
       {/* <Logo></Logo>
       <SignIn></SignIn>
       <FlightsContainer />
       <HotelsContainer></HotelsContainer>
       <PoiContainer></PoiContainer>
-      <DialogButton></DialogButton> */}
+       */}
       
     </div>
   );
