@@ -4,6 +4,7 @@ import passport, { authController } from '../controllers/authController';
 
 import userController from '../controllers/userController';
 
+
 const router = express.Router();
 
 router.get('/', authController.isLoggedIn, userController.getUserId, (req, res) => {
@@ -27,7 +28,8 @@ router.get('/google/callback',
     res.cookie('name', req.user.given_name);
     res.cookie('loggedin', true);
     return res.redirect('../../');
-  }
+  },
+  userController.addUser,
 );
 
 router.post('/logout', (req, res) => {
