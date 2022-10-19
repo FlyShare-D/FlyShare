@@ -61,10 +61,10 @@ const DialogButton = () => {
   }
 
   const handleChangeInformation = (e) => {
-    console.log('heyooo: ', e.target.value);
-    console.log('flightIcon: ', {flightIcon});
-    console.log('hotelIcon: ', {hotelIcon});
-    console.log('eventsIcon: ', {eventIcon});
+    // console.log('heyooo: ', e.target.value);
+    // console.log('flightIcon: ', {flightIcon});
+    // console.log('hotelIcon: ', {hotelIcon});
+    // console.log('eventsIcon: ', {eventIcon});
     dispatch(updateInformation(e.target.value));
   }
 
@@ -73,7 +73,7 @@ const DialogButton = () => {
     // console.log('flightIcon: ', {flightIcon});
     // console.log('hotelIcon: ', {hotelIcon});
     // console.log('eventsIcon: ', {eventIcon});
-    dispatch(updatePrice(e.target.value));
+    dispatch(updatePrice(Number(e.target.value)));
   }
 
   const handleSubmit = async () => {
@@ -105,24 +105,11 @@ const DialogButton = () => {
       },
       body: JSON.stringify(body)
     }
-    
+
     dispatch(clearIcon());
     setOpen(false); 
   }
 
-  
-   // const handlechangeInfo = (e) => {
-  //   //updates the store when they update the textfield with the information
-  //   //control flow depending on the use selector of the depends on the icon
-  //   if({flightIcon}) {
-    //   dispatch(updateFlights({destination: '', flightsName: e.target.value, price: '', votes: 0}));
-    // } else if({hotelIcon}) {
-  //     dispatch(updateHotels({destination: '', hotelName: e.target.value, price: '', votes: 0}));
-  //   } else if(eventIcon) {
-  //     dispatch(updateEvents({destination: '', eventDetails: e.target.value, price: '', votes: 0}))
-  //   } return;
-
-  // }
   
   return (
     <div className='dialog'>
@@ -135,7 +122,6 @@ const DialogButton = () => {
             
           </DialogContentText>
           <div>
-      {/* <Checkbox {...label} icon={<AirplaneTicketOutlinedIcon onClick={handleChangeIcon} />} checkedIcon={<AirplaneTicketIcon />} /> */}
       <Checkbox
         {...label}
         icon={<AirplaneTicketOutlinedIcon  />}
@@ -197,9 +183,6 @@ const [open, setOpen] = React.useState(false);
   };
 
   const dispatch = useDispatch();
-  // const { flightIcon, eventIcon, hotelIcon, flights, hotels, events } = useSelector(state => state.counter);
-
-  // {destination: '', flightName: '', price: '', votes: 0}
 
   const handleChangeFlightIcon = (e) => {
     //Invoke in each checkbox
@@ -210,84 +193,6 @@ const [open, setOpen] = React.useState(false);
     dispatch(updateFlightIcon(e.target.checked));
     
   }
-  
-
-  // const handlechangeInfo = (e) => {
-  //   //updates the store when they update the textfield with the information
-  //   //control flow depending on the use selector of the depends on the icon
-  //   if({flightIcon}) {
-  //     dispatch(updateFlights({destination: '', flightsName: e.target.value, price: '', votes: 0}));
-  //   } else if({hotelIcon}) {
-  //     dispatch(updateHotels({destination: '', hotelName: e.target.value, price: '', votes: 0}));
-  //   } else if(eventIcon) {
-  //     dispatch(updateEvents({destination: '', eventDetails: e.target.value, price: '', votes: 0}))
-  //   } return;
-
-  // }
-
-  // const handleChangePrice = (e) => {
-  //   //updates the store when they update the textfield with the price
-  //   //control flow depending on the use selector on which icon they chose 
-  //   if({flightIcon}) {
-  //     dispatch(updateFlights({destination: '', flightsName: '', price: e.target.value, votes: 0}));
-  //   } else if({hotelIcon}) {
-  //     dispatch(updateHotels({destination: '', hotelName: '', price: e.target.value, votes: 0}));
-  //   } else if(eventIcon) {
-  //     dispatch(updateEvents({destination: '', eventDetails: '', price: e.target.value, votes: 0}));
-  //   } return;
-
-  // }
-
-  // const handleSubmit = async () => {
-  //   //also need to update the store with the action likely using a array to represent the fields for hotel, flight, and poi
-
-  //   //when we create the fetch request post to the router in the back we are grabbing the relevent body information
-  //   //via the useselector hook this is inside the handle click on submission of the final form 
-  //    if({flightIcon}) {
-  //     await fetch('http://localhost:3000/trip/flight'), {
-  //       method: 'POST', 
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Accept: 'application/json',
-  //       },
-  //       body: JSON.stringify({
-          // destination: {flights[flights.length - 1][destination]},
-          // flightsName: {flights[flights.length -1][flightsName]},
-          // price: {flights[flights.lengnth - 1][price]},
-          // votes: {flights[flights.length - 1][votes]}
-  //       })
-  //     }
-  //     dispatch(updateFlightIcon(false));
-  //   } else if({hotelIcon}) {
-  //     await fetch('http://localhost:3000/trip/hotel'), {
-  //       method: 'POST', 
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Accept: 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         destination: {hotels[hotels.length - 1][destination]},
-  //         flightsName: {hotels[hotels.length -1][flightsName]},
-  //         price: {hotels[hotels.lengnth - 1][price]},
-  //         votes: {hotels[hotels.length - 1][votes]}
-  //       })
-  //       dispatch(updateHotelIcon(false));
-  //     } else if({eventIcon}) {
-  //     await fetch('http://localhost:3000/trip/event'), {
-  //       method: 'POST', 
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Accept: 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         destination: {events[events.length - 1][destination]},
-  //         flightsName: {event[events.length -1][flightsName]},
-  //         price: {events[events.lengnth - 1][price]},
-  //         votes: {events[events.length - 1][votes]}
-  //       })
-  //       dispatch(updateEventIcon(false));
-  //     } return;
-  //   }
   
     
     //then for the handle click on the submit button we need to use a useselector to template literal the endpoint and then fetch post to it we 
@@ -306,25 +211,13 @@ const [open, setOpen] = React.useState(false);
             
           </DialogContentText>
           <div>
-      {/* <Checkbox {...label} icon={<AirplaneTicketOutlinedIcon onClick={handleChangeIcon} />} checkedIcon={<AirplaneTicketIcon />} /> */}
       <Checkbox
         {...label}
         icon={<AirplaneTicketOutlinedIcon  />}
         checkedIcon={<AirplaneTicketIcon />}
         onChange={handleChangeFlightIcon}
       />
-      {/* <Checkbox
-        {...label}
-        icon={<BedroomChildOutlinedIcon 
-        onClick={handleChangeFlightIcon}/>}
-        checkedIcon={<BedroomChildIcon />}
-      />
-            <Checkbox
-        {...label}
-        icon={<LocalActivityOutlinedIcon 
-        onClick={handleChangeIcon}/>}
-        checkedIcon={<LocalActivityIcon/>}
-      /> */}
+      
           </div>
           <TextField
             autoFocus
