@@ -78,7 +78,7 @@ const TripContainer = (props) => {
   }
   // const { isLoggedIn } = useSelector((state) => state.counter);
   useEffect(() => {
-    dispatch(fetchInitial());
+    if (flights.length + hotels.length + events.length === 0) dispatch(fetchInitial());
   })
   return (
     <Paper sx={{my: 1}}>

@@ -5,7 +5,8 @@ import db from '../models/sqlModel';
 export default {
   getUserId: async (req: any, res: Response, next: NextFunction) => {
     // console.log('userController.getUserId');
-    const { email } = req.user;
+    let email;
+    if (req.user) email = req.user.email;
     // console.log('email', email);
 
     const queryString = `
