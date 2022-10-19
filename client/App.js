@@ -22,7 +22,9 @@ function App() {
       {/* <DestinationForm></DestinationForm> */}
       {/* <Logo></Logo> */}
       {/* <SignIn></SignIn> */}
-      <FlightsContainer />
+      <FlightsContainer category={"flight"} />
+      <FlightsContainer category={"hotel"} />
+      <FlightsContainer category={"event"} />
       {/* <HotelsContainer></HotelsContainer> */}
       {/* <PoiContainer></PoiContainer> */}
       {/* <DialogButton></DialogButton> */}

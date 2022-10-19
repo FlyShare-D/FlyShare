@@ -5,19 +5,16 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from 'react-redux';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const FlightsContainer = () => {
-  const flights = [{id: 0, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, {id: 1, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}];
+import ListSubheader from '@mui/material/ListSubheader';
+
+const FlightsContainer = (props) => {
+  // const flights = [{id: 0, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, {id: 1, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}];
+  const { category } = props
   const listItems = [];
-  const {count} = useSelector(state => state.counter);
+  const { flights, hotels, events } = useSelector(state => state.counter);
   const dispatch = useDispatch();
 
   const handleUpVote = (e) => {
@@ -25,12 +22,11 @@ const FlightsContainer = () => {
     // 1) a post request to the database to update the vote count
     // 2) update state of the slice
     const payload = {
-      category: 'flight',
+      category: category,
       id: e.target.id,
-      votes: 1,
+      voteIncrement: 1,
     }
     dispatch(updateVotes(payload));
-    console.log('Upvoted', e.target.id);
   }
 
   const handleDownVote = (e) => {
@@ -38,25 +34,30 @@ const FlightsContainer = () => {
     // 1) a post request to the database to update the vote count
     // 2) update state of the slice
     const payload = {
-      category: 'flight',
+      category: category,
       id: e.target.id,
-      votes: -1,
+      voteIncrement: -1,
     }
     dispatch(updateVotes(payload));
-    console.log('Downvoted', e.target.id);
   }
 
-  for (const flight of flights) {
+  let items;
+  if (category === 'flight') items = flights;
+  if (category === 'hotel') items = hotels;
+  if (category === 'event') items = events;
+  
+  for (const item of items) {
     listItems.push(
       <ListItem sx={{justifyContent: 'center'}}>
-        <ListItemText primary={flight.flightName} />
+        <ListItemText primary={item.flightName} />
         <Stack direction="row" spacing={1} sx={{display: 'flex', alignItems: 'center'}}>
-          <button id={`${flight.id}`} className='vote' onClick={handleUpVote}>
-            &#8679;
-          </button>
-          <span>{flight.votes}</span>
-          <button id={`${flight.id}`} className='vote' onClick={handleDownVote}>
+          <span>${new Intl.NumberFormat().format(item.price)}</span>
+          <button id={`${item.id}`} className='vote' onClick={handleDownVote}>
             &#8681;
+          </button>
+          <span>{item.votes}</span>
+          <button id={`${item.id}`} className='vote' onClick={handleUpVote}>
+            &#8679;
           </button>
       </Stack>
       </ListItem>
@@ -65,7 +66,13 @@ const FlightsContainer = () => {
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <nav aria-label="main mailbox folders">
-        <List>
+        <List
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              {`${category[0].toUpperCase()}${category.slice(1)}s`}
+            </ListSubheader>
+          }
+        >
           {listItems}
         </List>
       </nav>

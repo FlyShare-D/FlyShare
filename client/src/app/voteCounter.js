@@ -8,8 +8,16 @@ const initialState = {
     {id: 2, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}
   ],
   // flights: [],
-  hotels: [],
-  events: [],
+  // hotels: [],
+  hotels: [
+    {id: 1, destination: "Germany", flightName: "Hilton", price: 250, votes: 0}, 
+    {id: 2, destination: "Germany", flightName: "Mariott", price: 350, votes: 0}
+  ],
+  events: [
+    {id: 1, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
+    {id: 2, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0}
+  ],
+  // events: [],
   information: '',
   price: 0,
   flightIcon: false,
@@ -33,24 +41,21 @@ export const counterSlice = createSlice({
     updateVotes: (state, action) => {
       // this is where we will update state.flights
       const { id, category, voteIncrement } = action.payload;
-      const ids = state.flights.map((flight) => flight.id);
-      const index = ids.indexof(id);
-      const { flightName, votes } = state.flights[index];
 
       if (category === 'flight') {
         const ids = state.flights.map((flight) => flight.id);
-        const index = ids.indexof(id);
+        const index = ids.indexOf(Number(id))
         state.flights[index].votes += voteIncrement
       }
       if (category === 'hotel') {
         const ids = state.hotels.map((hotel) => hotel.id);
-        const index = ids.indexof(id);
-        state.flights[index].votes += voteIncrement
+        const index = ids.indexOf(Number(id))
+        state.hotels[index].votes += voteIncrement
       }
       if (category === 'event') {
         const ids = state.events.map((event) => event.id);
-        const index = ids.indexof(id);
-        state.flights[index].votes += voteIncrement
+        const index = ids.indexOf(Number(id))
+        state.events[index].votes += voteIncrement
       }
     },
     updateFlights: (state, action) => {
