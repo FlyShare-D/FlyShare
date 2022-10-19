@@ -1,10 +1,9 @@
 CREATE TABLE public.user (
   user_id SERIAL PRIMARY KEY,
   email varchar(255),
-  destination varchar(255)
 )
-INSERT INTO public.user (email, destination)
-VALUES ('chunhao@gmail.com', 'Italy');
+INSERT INTO public.user (email)
+VALUES ('chunhao@gmail.com');
 
 
 CREATE TABLE public.flight (
