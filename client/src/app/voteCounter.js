@@ -131,6 +131,6 @@ export const counterSlice = createSlice({
   },
 })
 
-export const { increment, decrement, updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon, updateVotes} = counterSlice.actions;
+export const { increment, decrement, updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon, updateVotes, setLoggedIn} = counterSlice.actions;
 
 export default counterSlice.reducer;
