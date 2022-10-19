@@ -32,7 +32,6 @@ const LogOut = () => {
   }
   let displayName = getCookie('name');
   return (
-    // <Button variant="contained" onClick = {handleClick2}>Logout</Button>
     <h4>Welcome {displayName}</h4>
   )
 }
