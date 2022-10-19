@@ -29,7 +29,7 @@ FlyShare is a application that helps users plan their vacations with friends. Fi
 * Cross platform capabilities with approved users via Oauth
 * Hosting our website
 * More robust test implementation
-* We would like to add sorting based on highest amount of claps
+* Adding a deletion button
 * Adding a button that will display the top choices for each category
 * Increased user friendliness
 * Adding more categories and API data
