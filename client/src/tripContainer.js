@@ -1,6 +1,7 @@
 import React from 'react';
-import { decrement, increment, updateVotes } from "./app/voteCounter";
+import { updateVotes } from "./app/voteCounter";
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,8 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ListSubheader from '@mui/material/ListSubheader';
 
-const FlightsContainer = (props) => {
-  // const flights = [{id: 0, destination: "Germany", flightName: "Delta", price: 250, votes: 0}, {id: 1, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}];
+const TripContainer = (props) => {
   const { category } = props
   const listItems = [];
   const { flights, hotels, events } = useSelector(state => state.counter);
@@ -52,13 +52,15 @@ const FlightsContainer = (props) => {
         <ListItemText primary={item.flightName} />
         <Stack direction="row" spacing={1} sx={{display: 'flex', alignItems: 'center'}}>
           <span>${new Intl.NumberFormat().format(item.price)}</span>
-          <button id={`${item.id}`} className='vote' onClick={handleDownVote}>
+          <Button 
+            sx={{backgroundColor: 'white', p: 0.5, border: 'none' }}
+            id={`${item.id}`} className='vote' onClick={handleDownVote}>
             &#8681;
-          </button>
+          </Button>
           <span>{item.votes}</span>
-          <button id={`${item.id}`} className='vote' onClick={handleUpVote}>
+          <Button id={`${item.id}`} className='vote' onClick={handleUpVote}>
             &#8679;
-          </button>
+          </Button>
       </Stack>
       </ListItem>
     )
@@ -76,8 +78,9 @@ const FlightsContainer = (props) => {
           {listItems}
         </List>
       </nav>
+      <Divider/>
     </Box>
   );
 }
 
-export default FlightsContainer;
+export default TripContainer;

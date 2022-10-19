@@ -6,9 +6,8 @@ import Logo from "./src/logo";
 import SignIn from './src/signin';
 import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
-import FlightsContainer from './src/flightsContainer';
-import HotelsContainer from './src/hotelsContainer';
-import PoiContainer from './src/poiContainer';
+import TripContainer from './src/tripContainer';
+
 
 function App() {
   // const { count } = useSelector(state => state.counter);
@@ -22,11 +21,9 @@ function App() {
       {/* <DestinationForm></DestinationForm> */}
       {/* <Logo></Logo> */}
       {/* <SignIn></SignIn> */}
-      <FlightsContainer category={"flight"} />
-      <FlightsContainer category={"hotel"} />
-      <FlightsContainer category={"event"} />
-      {/* <HotelsContainer></HotelsContainer> */}
-      {/* <PoiContainer></PoiContainer> */}
+      <TripContainer category={"flight"} />
+      <TripContainer category={"hotel"} />
+      <TripContainer category={"event"} />
       {/* <DialogButton></DialogButton> */}
       
     </div>
