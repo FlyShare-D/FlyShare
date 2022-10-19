@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import axios from 'axios';
 
 const initialState = {
   count: 0,
@@ -62,9 +62,9 @@ export const fetchInitial = createAsyncThunk(
   'counter/fetchInitial', 
   async () => {
     try {
-      response = await fetch(`http://localhost:3000/user/`);
-      console.log('FETCH RES', response.json())
-      return response.json();
+      const response = await axios.get('http://localhost:3000/user/');
+      console.log('FETCH RES', response)
+      return response.data
     } catch (err) {
       console.log('error in fetchning initial state: ', err)
     }
@@ -133,13 +133,21 @@ export const counterSlice = createSlice({
       state.price = 0;
     }
   },
-  extraReducers: {
-    [fetchInitial.fulfilled]: (state, {payload, meta}) => {
-      state.flights = payload.flights;
-      state.hotels = payload.hotels;
-      state.events = payload.events;
-    }
-  }
+  // extraReducers: {
+  //   [fetchInitial.fulfilled]: (state, {payload, meta}) => {
+  //     state.flights = payload.flights;
+  //     state.hotels = payload.hotels;
+  //     state.events = payload.events;
+  //   }
+  // }
+  extraReducers: (builder) => {
+    builder.addCase(fetchInitial.fulfilled, (state, action) => {
+      console.log(action);
+      state.flights = action.payload.flights;
+      state.hotels = action.payload.hotels;
+      state.events = action.payload.events;
+    });
+  },
 })
 
 export const { updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon, updateVotes, setLoggedIn} = counterSlice.actions;

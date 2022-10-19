@@ -100,7 +100,7 @@ export default {
     }
   },
   getEvents: async (req: any, res: Response, next: NextFunction) => {
-    console.log('userController.getHotels');
+    console.log('userController.getEvents');
     const userId = res.locals.userId;
 
     const queryString = `
