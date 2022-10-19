@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   count: 0,
   destination: '',
+  isLoggedIn: false,
   flights: [],
   hotels: [],
   events: [],
@@ -25,6 +26,9 @@ export const counterSlice = createSlice({
     },
     updateDestination: (state, action) => {
       state.destination = action.payload
+    },
+    setLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload
     },
     updateFlights: (state, action) => {
       state.flights = action.payload

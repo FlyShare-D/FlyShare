@@ -20,6 +20,7 @@ function App() {
       <button onClick={()=>dispatch(increment())}>UpVote</button>
       <button onClick={()=>dispatch(decrement())}>DownVote</button>
       <DestinationForm></DestinationForm>
+      <SignIn></SignIn>
       <DialogButton></DialogButton>
       {/* <Logo></Logo>
       <SignIn></SignIn>

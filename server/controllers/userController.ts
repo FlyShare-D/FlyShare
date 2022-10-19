@@ -16,7 +16,8 @@ export default {
 
     try {
       const result = await db.query(queryString, params);
-      res.locals.userId = result.rows[0].user_id;
+      console.log('result', result)
+      // res.locals.userId = result.rows[0].user_id;
       return next();
     } catch (err) {
       return next({
