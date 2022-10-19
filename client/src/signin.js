@@ -18,13 +18,6 @@ const LogIn = () => {
 }
 
 const LogOut = () => {
-  const handleClick2 = async () =>{
-    sessionStorage.setItem('loggedin', false);
-    sessionStorage.clear();
-    console.log('Logout button clicked');
-    const dispatch = useDispatch();
-    dispatch(setLoggedIn(false));
-  }
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -38,13 +31,13 @@ const LogOut = () => {
 
 function SignIn() {
   const { isLoggedIn } = useSelector((state) => state.counter);
-  const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
-  const dispatch = useDispatch();
+  // const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    // dispatch(decrement());
-    dispatch(setLoggedIn(updatedIsLoggedIn));
-  })
+  // useEffect(() => {
+  //   // dispatch(decrement());
+  //   dispatch(setLoggedIn(updatedIsLoggedIn));
+  // })
 
   console.log('isLoggedIn', isLoggedIn)
 
