@@ -38,6 +38,11 @@ app.use(
   express.static(path.join(__dirname, '../client/stylesheets')),
 );
 
+app.use(
+  '/assets',
+  express.static(path.join(__dirname, '../client/assets')),
+);
+
 app.get('/homepage', authController.isLoggedIn, (req: Request, res:Response) => {
   res.send('successful login!');
 });

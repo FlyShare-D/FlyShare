@@ -7,24 +7,25 @@ import SignIn from './src/signin';
 import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
 import TripContainer from './src/tripContainer';
-
+import AppNavBar from './src/AppNavbar'
+import StyledFab from './src/StyledFab'
 
 function App() {
-  // const { count } = useSelector(state => state.counter);
   // const dispatch = useDispatch();
   return (
     <div className="App">
-      <h1 className="App-header">FlyShare</h1>
-      {/* //<h3>The Vote Count is: {count} </h3> */}
-      {/* <button onClick={()=>dispatch(increment())}>UpVote</button>
-      <button onClick={()=>dispatch(decrement())}>DownVote</button> */}
-      {/* <DestinationForm></DestinationForm> */}
-      {/* <Logo></Logo> */}
-      {/* <SignIn></SignIn> */}
-      <TripContainer category={"flight"} />
-      <TripContainer category={"hotel"} />
-      <TripContainer category={"event"} />
-      {/* <DialogButton></DialogButton> */}
+      {/* <Paper sx={{backgroundColor: '#F6F6F6'}} elevation={0}> */}
+        <AppNavBar/>
+          {/* <DestinationForm></DestinationForm> */}
+          {/* <Logo></Logo> */}
+          {/* <SignIn></SignIn> */}
+          <TripContainer category={"flight"} />
+          <TripContainer category={"hotel"} />
+          <TripContainer category={"event"} />
+          {/* <DialogButton></DialogButton> */}
+          <StyledFab />
+      {/* </Paper> */}
+      
       
     </div>
   );
