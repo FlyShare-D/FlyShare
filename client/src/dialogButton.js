@@ -20,6 +20,7 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import { updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon } from "./app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement } from "./app/voteCounter";
+import StyledFab from './styledFab'
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -51,28 +52,18 @@ const DialogButton = () => {
   }
 
   const handleChangeHotelIcon = (e) => {
-    // console.log('Hotel Changed: ', e.target.checked);
     dispatch(updateHotelIcon(e.target.checked));
   }
 
   const handleChangeEventIcon = (e)=> {
-    // console.log('Event Changed: ', e.target.checked);
     dispatch(updateEventIcon(e.target.checked));
   }
 
   const handleChangeInformation = (e) => {
-    // console.log('heyooo: ', e.target.value);
-    // console.log('flightIcon: ', {flightIcon});
-    // console.log('hotelIcon: ', {hotelIcon});
-    // console.log('eventsIcon: ', {eventIcon});
     dispatch(updateInformation(e.target.value));
   }
 
   const handleChangePrice = (e) => {
-    // console.log('heyooo: ', e.target.value);
-    // console.log('flightIcon: ', {flightIcon});
-    // console.log('hotelIcon: ', {hotelIcon});
-    // console.log('eventsIcon: ', {eventIcon});
     dispatch(updatePrice(Number(e.target.value)));
   }
 
@@ -105,17 +96,13 @@ const DialogButton = () => {
       },
       body: JSON.stringify(body)
     }
-
     dispatch(clearIcon());
     setOpen(false); 
   }
-
   
   return (
     <div className='dialog'>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        +
-      </Button>
+      <StyledFab onClick={handleClickOpen}/>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText>

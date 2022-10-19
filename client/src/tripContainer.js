@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import ListSubheader from '@mui/material/ListSubheader';
 
 const TripContainer = (props) => {
-  const { category } = props
+  const { category } = props;
   const listItems = [];
   const { flights, hotels, events } = useSelector(state => state.counter);
   const dispatch = useDispatch();
@@ -47,10 +47,15 @@ const TripContainer = (props) => {
   if (category === 'hotel') items = hotels;
   if (category === 'event') items = events;
   
+  let description;
+  if (category === 'flight') description = 'flightName';
+  if (category === 'hotel') description = 'hotelName';
+  if (category === 'event') description = 'eventDetails';
+
   for (const item of items) {
     listItems.push(
       <ListItem sx={{justifyContent: 'center'}}>
-        <ListItemText primary={item.flightName} />
+        <ListItemText primary={item[description]} />
         <Stack direction="row" spacing={1} sx={{display: 'flex', alignItems: 'center'}}>
           <Typography>
             ${new Intl.NumberFormat().format(item.price)}

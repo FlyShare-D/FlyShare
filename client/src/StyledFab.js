@@ -2,11 +2,12 @@ import * as React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 
-const StyledFab = () => {
+const StyledFab = (props) => {
   return (
     <Fab 
     color="primary" 
     aria-label="add"
+    onClick={props.onClick}
     sx={{
       position: 'fixed',
       zIndex: 1,

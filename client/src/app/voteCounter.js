@@ -10,20 +10,20 @@ const initialState = {
   // flights: [],
   // hotels: [],
   hotels: [
-    {id: 1, destination: "Germany", flightName: "Hilton", price: 250, votes: 0}, 
-    {id: 2, destination: "Germany", flightName: "Mariott", price: 350, votes: 0}
+    {id: 1, destination: "Germany", hotelName: "Hilton", price: 250, votes: 0}, 
+    {id: 2, destination: "Germany", hotelName: "Mariott", price: 350, votes: 0}
   ],
   events: [
-    {id: 1, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
-    {id: 2, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
-    {id: 3, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
-    {id: 4, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
-    {id: 5, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
-    {id: 6, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
-    {id: 7, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
-    {id: 8, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
-    {id: 9, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
-    {id: 10, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
+    {id: 1, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+    {id: 2, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
+    {id: 3, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+    {id: 4, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
+    {id: 5, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+    {id: 6, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 2},
+    {id: 7, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+    {id: 8, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 3},
+    {id: 9, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+    {id: 10, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 5},
   ],
   // events: [],
   information: '',
@@ -37,12 +37,12 @@ export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.count += 1
-    },
-    decrement: (state) => {
-      state.count -= 1
-    },
+    // increment: (state) => {
+    //   state.count += 1
+    // },
+    // decrement: (state) => {
+    //   state.count -= 1
+    // },
     updateDestination: (state, action) => {
       state.destination = action.payload
     },
@@ -54,16 +54,19 @@ export const counterSlice = createSlice({
         const ids = state.flights.map((flight) => flight.id);
         const index = ids.indexOf(Number(id))
         state.flights[index].votes += voteIncrement
+        state.flights.sort((a, b) => b.votes - a.votes)
       }
       if (category === 'hotel') {
         const ids = state.hotels.map((hotel) => hotel.id);
         const index = ids.indexOf(Number(id))
         state.hotels[index].votes += voteIncrement
+        state.hotels.sort((a, b) => b.votes - a.votes)
       }
       if (category === 'event') {
         const ids = state.events.map((event) => event.id);
         const index = ids.indexOf(Number(id))
         state.events[index].votes += voteIncrement
+        state.events.sort((a, b) => b.votes - a.votes)
       }
     },
     updateFlights: (state, action) => {

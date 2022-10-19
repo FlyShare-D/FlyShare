@@ -30,21 +30,14 @@ const ResponsiveAppBar = () => {
       <Container maxWidth="xl" >
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <Box sx={{ width: 40, height: 40 }} />
-          <img alt="logo" src="../assets/flyshare2.png" style={{ height: 60 }} />
+          <img alt="logo" src="../assets/flyshareicon.png" style={{ height: 60 }} />
           <Box sx={{ }}>
-            {/* <Tooltip title="Logout"> */}
-              
               <Button variant="contained" disableElevation>
                 <LogoutIcon />
               </Button>
-              {/* <Button variant="outlined">
-                <LogoutIcon />
-              </Button> */}
-            {/* </Tooltip> */}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
-              // anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
