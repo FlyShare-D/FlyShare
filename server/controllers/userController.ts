@@ -29,6 +29,33 @@ export default {
       });
     }
   },
+  addUser: async (req: any, res: Response, next: NextFunction) => {
+    // const req.User.email;
+    const email = 'mlamchamkee@gmail.com'
+
+    const queryString = `
+    INSERT INTO public.user (email)
+    VALUES ($1)
+    RETURNING (user_id, email)
+    `;
+    const params = [email];
+
+    if (res.locals.userId !== undefined)
+    {
+      try {
+      const result = await db.query(queryString, params);
+      // console.log('result', result);
+      res.locals.flights = result.rows;
+      return next();
+      } catch (err) {
+        return next({
+          log: `error in getUserId: ${err}`,
+          status: 500,
+          message: 'error occurred in addUser middleware function',
+        });
+      }
+    }
+  },
   getFlights: async (req: any, res: Response, next: NextFunction) => {
     console.log('userController.getFlights');
     // console.log('req', req.body);
