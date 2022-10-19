@@ -17,7 +17,7 @@ export default {
     try {
       const result = await db.query(queryString, params);
       console.log('result', result)
-      // res.locals.userId = result.rows[0].user_id;
+      res.locals.userId = result.rows[0]?.user_id;
       return next();
     } catch (err) {
       return next({
@@ -33,16 +33,17 @@ export default {
     const queryString = `
     INSERT INTO public.user (email)
     VALUES ($1)
-    RETURNING (user_id, email)
+    RETURNING (user_id)
     `;
     const params = [email];
 
+    console.log('RES LOCALS ', res.locals)
     if (res.locals.userId === undefined)
     {
       try {
       const result = await db.query(queryString, params);
-      // console.log('result', result);
-      res.locals.flights = result.rows;
+      console.log('Adding User', result);
+      res.locals.userId = result.rows[0].user_id;
       return next();
       } catch (err) {
         return next({
@@ -52,6 +53,7 @@ export default {
         });
       }
     }
+    return next();
   },
   getFlights: async (req: any, res: Response, next: NextFunction) => {
     console.log('userController.getFlights');
