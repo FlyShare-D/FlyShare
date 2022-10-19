@@ -1,22 +1,20 @@
-// import './styles.css';
-import React from 'react';
-import { decrement, increment, updateFlightIcon } from "./src/app/voteCounter";
+import React, { useEffect } from 'react';rom "./src/app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
-import Logo from "./src/logo";
-import SignIn from './src/signin';
 import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
 import TripContainer from './src/tripContainer';
 import AppNavBar from './src/AppNavbar'
-import GoogleIcon from '@mui/icons-material/Google';
-import Button from '@mui/material/Button';
 import Landing from './src/landing'
+import { setLoggedIn } from './src/app/voteCounter';
 
 function App() {
-  // const dispatch = useDispatch();
-  // const isLoggedIn = sessionStorage.getItem('isloggedin');
-  const isLoggedIn = true
+  const { isLoggedIn } = useSelector((state) => state.counter);
+  const updatedIsLoggedIn = sessionStorage.getItem('loggedin');
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(setLoggedIn(updatedIsLoggedIn));
+  })
   if (isLoggedIn) return (
     <div className="App">
       <AppNavBar/>
@@ -25,8 +23,6 @@ function App() {
       <TripContainer category={"hotel"} />
       <TripContainer category={"event"} />
       <DialogButton />
-      <SignIn />
-      <Landing />
     </div>
   );
   if (!isLoggedIn) return (

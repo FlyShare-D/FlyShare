@@ -50,10 +50,6 @@ function SignIn() {
     {isLoggedIn && <LogOut />}
     
 </Stack>
-<Button>
-  <GoogleIcon />
-  Login With Google
-</Button>
   </div>
   )
 }
