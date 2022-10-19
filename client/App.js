@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';rom "./src/app/voteCounter";
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DestinationForm from './src/destinationForm';
 import DialogButton from "./src/dialogButton";
@@ -26,7 +26,10 @@ function App() {
     </div>
   );
   if (!isLoggedIn) return (
-    <Landing />
+    <div className="Guest">
+      <AppNavBar/>
+      <Landing />
+    </div>
   );
 }
 

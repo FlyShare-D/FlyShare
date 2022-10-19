@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import GoogleIcon from '@mui/icons-material/Google';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
@@ -49,8 +48,7 @@ const Landing = () => {
   
   return (
     <Box 
-      flexGrow={1} 
-      sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+      sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}
     >
       <Button 
         variant="contained"
