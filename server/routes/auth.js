@@ -20,6 +20,8 @@ router.get('/google/callback',
     successRedirect: '../../homepage',
     failureRedirect: '/failure',
   }),
+  userController.getUserId,
+  userController.addUser,
 );
 
 router.get('/failure', (req, res) =>{
