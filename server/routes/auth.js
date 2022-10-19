@@ -22,6 +22,7 @@ router.get('/google/callback',
     failureRedirect: '/failure',
   }),
   userController.getUserId,
+  // userController.addUser,
   (req, res) =>{
     console.log('request: ', req.user)
     res.cookie('email', req.user.email);
@@ -29,7 +30,6 @@ router.get('/google/callback',
     res.cookie('loggedin', true);
     return res.redirect('../../');
   },
-  userController.addUser,
 );
 
 router.post('/logout', (req, res) => {

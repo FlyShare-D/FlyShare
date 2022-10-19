@@ -5,12 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Checkbox from '@mui/material/Checkbox';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AirplaneTicketOutlinedIcon from '@mui/icons-material/AirplaneTicketOutlined';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import BedroomChildOutlinedIcon from '@mui/icons-material/BedroomChildOutlined';
@@ -19,7 +14,6 @@ import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import { updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon } from "./app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
-import { decrement } from "./app/voteCounter";
 import StyledFab from './styledFab'
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -68,7 +62,6 @@ const DialogButton = () => {
   }
 
   const handleSubmit = async () => {
-    // const { flightIcon, hotelIcon, eventIcon, destination, information, price } = useSelector((state) => state.counter);
     let endpoint = '' 
     if (flightIcon) endpoint += 'flight';
     if (hotelIcon) endpoint += 'hotel';
@@ -97,16 +90,13 @@ const DialogButton = () => {
       body: JSON.stringify(body)
     }
     if(endpoint === 'flight') {
-      dispatch(updateFlights({destination: {destination}, flightName: {information},price: {price}, votes: 0}));
-      console.log('CHOSE FLIGHT');
+      const newBody = Object.assign(body, {id: flights.length + 1, votes: 0})
+      dispatch(updateFlights(newBody));
     } else if (endpoint === 'hotel') {
-      dispatch(updateHotels({destination: {destination}, hotelName: {information},price: {price}, votes: 0}));
-      console.log('CHOSE HOTEL');
+      dispatch(updateHotels({id: hotels.length + 1, destination: destination, hotelName: information,price: price, votes: 0}));
     } else if (endpoint === 'event') {
-      dispatch(updateEvents({destination: {destination}, eventDetails: {information},price: {price}, votes: 0}))
-      console.log('CHOSE EVENT');
+      dispatch(updateEvents({id: events.length + 1, destination: destination, eventDetails: information,price: price, votes: 0}))
     } else {
-      console.log('choose an icon');
     }
 
     dispatch(clearIcon());

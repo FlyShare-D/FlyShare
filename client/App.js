@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     dispatch(setLoggedIn(updatedIsLoggedIn));
+    // dispatch()
   })
   if (isLoggedIn) return (
     <div className="App">

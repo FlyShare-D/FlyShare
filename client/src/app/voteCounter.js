@@ -1,41 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 
 const initialState = {
   count: 0,
   destination: '',
   isLoggedIn: false,
-  flights: [
-    {id: 1, destination: "Germany", flightName: "Delta", price: 250, votes: 0},
-    {id: 2, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}
-  ],
+  // flights: [
+  //   {id: 1, destination: "Germany", flightName: "Delta", price: 250, votes: 0},
+  //   {id: 2, destination: "Germany", flightName: "American Airlines", price: 350, votes: 0}
+  // ],
   userId: 0,
-  // flights: [],
-  // hotels: [],
-  // events: [],
-  // flights: [],
+  flights: [],
+  hotels: [],
+  events: [],
+  flights: [],
   /*
-  if(isLoggedIn){
-    
-  }
-  const data = fetchInitial(userId);
-
   */
-  hotels: [
-    {id: 1, destination: "Germany", hotelName: "Hilton", price: 250, votes: 0}, 
-    {id: 2, destination: "Germany", hotelName: "Mariott", price: 350, votes: 0}
-  ],
-  events: [
-    {id: 1, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
-    {id: 2, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
-    {id: 3, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
-    {id: 4, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
-    {id: 5, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
-    {id: 6, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 2},
-    {id: 7, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
-    {id: 8, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 3},
-    {id: 9, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
-    {id: 10, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 5},
-  ],
+  // hotels: [
+  //   {id: 1, destination: "Germany", hotelName: "Hilton", price: 250, votes: 0}, 
+  //   {id: 2, destination: "Germany", hotelName: "Mariott", price: 350, votes: 0}
+  // ],
+  // events: [
+  //   {id: 1, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 2, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
+  //   {id: 3, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 4, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 0},
+  //   {id: 5, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 6, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 2},
+  //   {id: 7, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 8, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 3},
+  //   {id: 9, destination: "Germany", eventDetails: "Eating", price: 250, votes: 0}, 
+  //   {id: 10, destination: "Germany", eventDetails: "Sleeping", price: 350, votes: 5},
+  // ],
+  // if(isLoggedIn){
+    // fetchGetID
+    // const data = fetchInitial(userId);
+  // },
   
   information: '',
   price: 0,
@@ -43,25 +43,35 @@ const initialState = {
   hotelIcon: false,
   eventIcon: false,
 }
-const fetchInitial = (userId) => {
-  fetch(`http://localhost:3000/user/${userId}`).then((res) => {
-    return res.json()
-  }).then((data) => {
-    console.log('data in fetch initial ', data)
-    return data
-  })
-}
+// const fetchInitial = () => {
+//   fetch(`http://localhost:3000/user/`).then((res) => {
+//     return res.json()
+//   }).then((data) => {
 
+//     console.log('data in fetch initial ', data)
+
+//     for (let i of data) {
+//       flights.push()
+//       hotels.push(i)
+//       events.push(i)
+//     }
+//     // return data
+//   })
+// }
+export const fetchInitial = createAsyncThunk(
+  'counter/fetchInitial', 
+  async () => {
+    try {
+      response = await fetch(`http://localhost:3000/user/`);
+      return response.json();
+    } catch (err) {
+      console.log('error in fetchning initial state: ', err)
+    }
+})
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   state.count += 1
-    // },
-    // decrement: (state) => {
-    //   state.count -= 1
-    // },
     updateDestination: (state, action) => {
       state.destination = action.payload
     },
@@ -91,20 +101,13 @@ export const counterSlice = createSlice({
       state.isLoggedIn = action.payload
     },
     updateFlights: (state, action) => {
-      const deepClone = [...state.flights];
-      const altered = deepClone.push(action.payload);
-      state.flights = altered;
-      // state.flights = action.payload
+      state.flights.push(action.payload);
     },
     updateHotels: (state, action) => {
-      const deepCloneTwo = [...state.hotels];
-      const alteredTwo = deepCloneTwo.push(action.payload);
-      state.hotels = alteredTwo;
+      state.hotels.push(action.payload);
     },
     updateEvents: (state, action) => {
-      const deepCloneThree = [...state.events];
-      const alteredThree = deepCloneThree.push(action.payload);
-      state.events = alteredThree;
+      state.events.push(action.payload);
     },
     updateFlightIcon: (state, action) => {
       state.flightIcon = action.payload
@@ -129,8 +132,15 @@ export const counterSlice = createSlice({
       state.price = 0;
     }
   },
+  extraReducers: {
+    [fetchInitial.fulfilled]: (state, {payload, meta}) => {
+      state.flights = payload.flights;
+      state.hotels = payload.hotels;
+      state.events = payload.events;
+    }
+  }
 })
 
-export const { increment, decrement, updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon, updateVotes, setLoggedIn} = counterSlice.actions;
+export const { updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon, updateVotes, setLoggedIn} = counterSlice.actions;
 
 export default counterSlice.reducer;

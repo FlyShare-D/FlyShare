@@ -40,5 +40,4 @@ root.render(
       <App />
     </Provider>
   </ThemeProvider>
-
 );
