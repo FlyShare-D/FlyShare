@@ -6,9 +6,11 @@ const initialState = {
   flights: [],
   hotels: [],
   events: [],
+  information: '',
+  price: 0,
   flightIcon: false,
   hotelIcon: false,
-  eventIcon: false
+  eventIcon: false,
 }
 
 export const counterSlice = createSlice({
@@ -39,12 +41,25 @@ export const counterSlice = createSlice({
     updateHotelIcon: (state, action) => {
       state.hotelIcon = action.payload
     },
-    updateventIcon: (state, action) => {
+    updateEventIcon: (state, action) => {
       state.eventIcon = action.payload
     },
+    updateInformation: (state, action) => {
+      state.information = action.payload
+    },
+    updatePrice: (state, action) => {
+      state.price = action.payload
+    },
+    clearIcon: (state) => {
+      state.flightIcon = false;
+      state.hotelIcon = false;
+      state.eventIcon = false;
+      state.information = '';
+      state.price = 0;
+    }
   },
 })
 
-export const { increment, decrement, updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateventIcon} = counterSlice.actions;
+export const { increment, decrement, updateDestination, updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon} = counterSlice.actions;
 
 export default counterSlice.reducer;

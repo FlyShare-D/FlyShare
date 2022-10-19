@@ -17,7 +17,7 @@ import BedroomChildOutlinedIcon from '@mui/icons-material/BedroomChildOutlined';
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import { updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateventIcon } from "./app/voteCounter";
+import { updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon } from "./app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement } from "./app/voteCounter";
 
@@ -36,7 +36,7 @@ const DialogButton = () => {
   };
 
   const dispatch = useDispatch();
-  // const { flightIcon, eventIcon, hotelIcon, flights, hotels, events } = useSelector(state => state.counter);
+  const { flightIcon, eventIcon, hotelIcon, flights, hotels, events, price, information, destination } = useSelector(state => state.counter);
 
   // {destination: '', flightName: '', price: '', votes: 0}
 
@@ -45,23 +45,84 @@ const DialogButton = () => {
     //handlechange for the checkboxes
     //need to add variable to the store that is a empty string for the checkboxes. if the checkbox is clicked itll change the store value to the value of the checkbox they clicked and more
     //acurately the endpoint this way we can save time from doing control flow
-    console.log('Flight checked', e.target.checked);
+    // console.log('Flight checked', e.target.checked);
     dispatch(updateFlightIcon(e.target.checked));
     
   }
 
   const handleChangeHotelIcon = (e) => {
-    console.log('Hotel Changed: ', e.target.checked);
+    // console.log('Hotel Changed: ', e.target.checked);
     dispatch(updateHotelIcon(e.target.checked));
   }
 
   const handleChangeEventIcon = (e)=> {
-    console.log('Event Changed: ', e.target.checked);
-    dispatch(updateEvents(e.target.checked));
+    // console.log('Event Changed: ', e.target.checked);
+    dispatch(updateEventIcon(e.target.checked));
   }
 
- 
+  const handleChangeInformation = (e) => {
+    console.log('heyooo: ', e.target.value);
+    console.log('flightIcon: ', {flightIcon});
+    console.log('hotelIcon: ', {hotelIcon});
+    console.log('eventsIcon: ', {eventIcon});
+    dispatch(updateInformation(e.target.value));
+  }
 
+  const handleChangePrice = (e) => {
+    // console.log('heyooo: ', e.target.value);
+    // console.log('flightIcon: ', {flightIcon});
+    // console.log('hotelIcon: ', {hotelIcon});
+    // console.log('eventsIcon: ', {eventIcon});
+    dispatch(updatePrice(e.target.value));
+  }
+
+  const handleSubmit = async () => {
+    // const { flightIcon, hotelIcon, eventIcon, destination, information, price } = useSelector((state) => state.counter);
+    let endpoint = '' 
+    if (flightIcon) endpoint += 'flight';
+    if (hotelIcon) endpoint += 'hotel';
+    if (eventIcon) endpoint += 'event';
+
+    let description = '' 
+    if (flightIcon) description += 'flightName';
+    if (hotelIcon) description += 'hotelName';
+    if (eventIcon) description += 'eventDetails';
+
+    const body = {
+      destination: destination,
+      price: price
+    };
+    body[description] = information;
+
+    console.log('BODY: ', body);
+    console.log('ENDPOINT: ', endpoint);
+
+    await fetch(`http://localhost:3000/trip/${endpoint}`), {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(body)
+    }
+    
+    dispatch(clearIcon());
+    setOpen(false); 
+  }
+
+  
+   // const handlechangeInfo = (e) => {
+  //   //updates the store when they update the textfield with the information
+  //   //control flow depending on the use selector of the depends on the icon
+  //   if({flightIcon}) {
+    //   dispatch(updateFlights({destination: '', flightsName: e.target.value, price: '', votes: 0}));
+    // } else if({hotelIcon}) {
+  //     dispatch(updateHotels({destination: '', hotelName: e.target.value, price: '', votes: 0}));
+  //   } else if(eventIcon) {
+  //     dispatch(updateEvents({destination: '', eventDetails: e.target.value, price: '', votes: 0}))
+  //   } return;
+
+  // }
   
   return (
     <div className='dialog'>
@@ -102,6 +163,7 @@ const DialogButton = () => {
             type="text"
             fullWidth
             variant="standard"
+            onChange={handleChangeInformation}
           />
             <TextField
             autoFocus
@@ -111,11 +173,12 @@ const DialogButton = () => {
             type="text"
             fullWidth
             variant="standard"
+            onChange={handleChangePrice}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -188,10 +251,10 @@ const [open, setOpen] = React.useState(false);
   //         Accept: 'application/json',
   //       },
   //       body: JSON.stringify({
-  //         destination: {flights[flights.length - 1][destination]},
-  //         flightsName: {flights[flights.length -1][flightsName]},
-  //         price: {flights[flights.lengnth - 1][price]},
-  //         votes: {flights[flights.length - 1][votes]}
+          // destination: {flights[flights.length - 1][destination]},
+          // flightsName: {flights[flights.length -1][flightsName]},
+          // price: {flights[flights.lengnth - 1][price]},
+          // votes: {flights[flights.length - 1][votes]}
   //       })
   //     }
   //     dispatch(updateFlightIcon(false));
