@@ -15,7 +15,15 @@ const initialState = {
   ],
   events: [
     {id: 1, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
-    {id: 2, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0}
+    {id: 2, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
+    {id: 3, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
+    {id: 4, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
+    {id: 5, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
+    {id: 6, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
+    {id: 7, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
+    {id: 8, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
+    {id: 9, destination: "Germany", flightName: "Eating", price: 250, votes: 0}, 
+    {id: 10, destination: "Germany", flightName: "Sleeping", price: 350, votes: 0},
   ],
   // events: [],
   information: '',

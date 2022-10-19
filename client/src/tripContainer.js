@@ -8,7 +8,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from 'react-redux';
-
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 import ListSubheader from '@mui/material/ListSubheader';
 
 const TripContainer = (props) => {
@@ -51,13 +52,17 @@ const TripContainer = (props) => {
       <ListItem sx={{justifyContent: 'center'}}>
         <ListItemText primary={item.flightName} />
         <Stack direction="row" spacing={1} sx={{display: 'flex', alignItems: 'center'}}>
-          <span>${new Intl.NumberFormat().format(item.price)}</span>
+          <Typography>
+            ${new Intl.NumberFormat().format(item.price)}
+          </Typography>
           <Button 
-            sx={{backgroundColor: 'white', p: 0.5, border: 'none' }}
+            sx={{p: 0.5, border: 'none' }}
             id={`${item.id}`} className='vote' onClick={handleDownVote}>
             &#8681;
           </Button>
-          <span>{item.votes}</span>
+          <Typography>
+            {item.votes}
+          </Typography>
           <Button id={`${item.id}`} className='vote' onClick={handleUpVote}>
             &#8679;
           </Button>
@@ -66,11 +71,12 @@ const TripContainer = (props) => {
     )
   }
   return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+    <Paper sx={{my: 1}}>
+      <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <nav aria-label="main mailbox folders">
         <List
           subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
+            <ListSubheader component="div" id="nested-list-subheader" sx={{backgroundColor: '#8785A2'}}>
               {`${category[0].toUpperCase()}${category.slice(1)}s`}
             </ListSubheader>
           }
@@ -80,6 +86,7 @@ const TripContainer = (props) => {
       </nav>
       <Divider/>
     </Box>
+    </Paper>
   );
 }
 
