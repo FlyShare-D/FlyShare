@@ -8,7 +8,7 @@ import userController from '../controllers/userController';
 const router = express.Router();
 
 router.get('/', authController.isLoggedIn, userController.getUserId, (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   return res.status(200);
 });
 
@@ -24,7 +24,7 @@ router.get('/google/callback',
   userController.getUserId,
   userController.addUser,
   (req, res) =>{
-    console.log('request: ', req.user)
+    // console.log('request: ', req.user)
     res.cookie('email', req.user.email);
     res.cookie('name', req.user.given_name);
     res.cookie('loggedin', true);

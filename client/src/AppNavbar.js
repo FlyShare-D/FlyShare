@@ -33,7 +33,7 @@ const ResponsiveAppBar = () => {
       <Container maxWidth="xl" >
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <Box sx={{ width: 40, height: 40 }} />
-          <img alt="logo" src="../assets/flyshareicon.png" style={{ height: 60 }} />
+          <img alt="logo" src="../assets/logo-flyshare.png" style={{ height: 50 }} />
           <Box sx={{ }}>
               <Button variant="contained" disableElevation onClick={handleLogout}>
                 {isLoggedIn && <LogoutIcon />}

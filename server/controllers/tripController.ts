@@ -30,8 +30,10 @@ export default {
   },
   addHotel: async (req: Request, res: Response, next: NextFunction) => {
     // console.log('tripController.addHotel')
+    // console.log('REQ BODY', req.body)
     const { destination, hotelName, price } = req.body;
     const { userId } = res.locals;
+    // console.log('addHotel for', res.locals.userId)
 
     const queryString = `
     INSERT INTO public.hotel (user_id, destination, hotel_name, price, votes)

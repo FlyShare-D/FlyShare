@@ -6,6 +6,7 @@ import TripContainer from './src/tripContainer';
 import AppNavBar from './src/AppNavbar'
 import Landing from './src/landing'
 import { setLoggedIn } from './src/app/voteCounter';
+import { fetchInitial } from './src/app/voteCounter';
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.counter);
@@ -14,7 +15,7 @@ function App() {
 
   useEffect(() => {
     dispatch(setLoggedIn(updatedIsLoggedIn));
-    // dispatch()
+    
   })
   if (isLoggedIn) return (
     <div className="App">

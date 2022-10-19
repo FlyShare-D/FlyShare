@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FFC7C7',
+      main: '#cc9d9d',
       contrastText: '#F6F6F6',
     },
     secondary: {

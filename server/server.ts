@@ -23,7 +23,12 @@ import { ErrObject } from './types';
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 app.use(session({ secret: 'secret' }));
+// app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -33,8 +38,6 @@ app.use('/auth', authRoutes);
 app.use('/trip', tripRouter);
 
 app.use('/user', userRouter);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use(
   '/stylesheets',

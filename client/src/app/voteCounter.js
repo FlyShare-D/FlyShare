@@ -63,6 +63,7 @@ export const fetchInitial = createAsyncThunk(
   async () => {
     try {
       response = await fetch(`http://localhost:3000/user/`);
+      console.log('FETCH RES', response.json())
       return response.json();
     } catch (err) {
       console.log('error in fetchning initial state: ', err)

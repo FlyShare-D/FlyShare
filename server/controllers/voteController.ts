@@ -15,7 +15,7 @@ export default {
     const params = [userId, destination, flightName, vote]
     try {
       const result = await db.query(queryString, params)
-      console.log('result in voteflight: ', result.rows[0])
+      // console.log('result in voteflight: ', result.rows[0])
       res.locals.flightVotes = result.rows[0];
       // console.log('Flight Added!', res.locals.flight);
       return next();
@@ -39,7 +39,7 @@ export default {
     const params = [userId, destination, hotelName, vote]
     try {
       const result = await db.query(queryString, params)
-      console.log('result in vote hotel: ', result)
+      // console.log('result in vote hotel: ', result)
       res.locals.hotelVotes = result.rows[0];
       return next();
     } catch (err) {
@@ -63,7 +63,7 @@ export default {
     const params = [userId, destination, eventDetails, vote]
     try {
       const result = await db.query(queryString, params)
-      console.log('result in vote : ', result)
+      // console.log('result in vote : ', result)
       res.locals.eventVotes = result.rows[0];
       return next();
     } catch (err) {

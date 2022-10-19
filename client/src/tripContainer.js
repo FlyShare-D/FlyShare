@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { updateVotes } from "./app/voteCounter";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import ListSubheader from '@mui/material/ListSubheader';
+import { fetchInitial } from './app/voteCounter';
 
 const TripContainer = (props) => {
   const { category } = props;
@@ -75,6 +76,10 @@ const TripContainer = (props) => {
       </ListItem>
     )
   }
+  // const { isLoggedIn } = useSelector((state) => state.counter);
+  useEffect(() => {
+    dispatch(fetchInitial());
+  })
   return (
     <Paper sx={{my: 1}}>
       <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>

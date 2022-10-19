@@ -15,6 +15,7 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import { updateFlights, updateHotels, updateEvents, updateFlightIcon, updateHotelIcon, updateEventIcon, updateInformation, updatePrice, clearIcon } from "./app/voteCounter";
 import { useSelector, useDispatch } from 'react-redux';
 import StyledFab from './styledFab'
+import axios from 'axios'
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -66,12 +67,14 @@ const DialogButton = () => {
     if (flightIcon) endpoint += 'flight';
     if (hotelIcon) endpoint += 'hotel';
     if (eventIcon) endpoint += 'event';
-
     let description = '' 
     if (flightIcon) description += 'flightName';
     if (hotelIcon) description += 'hotelName';
     if (eventIcon) description += 'eventDetails';
-
+    
+    console.log('DESTINATION', destination);
+    console.log('Price', price);
+    // console.log('flightName: ', flightName);
     const body = {
       destination: destination,
       price: price
@@ -81,14 +84,22 @@ const DialogButton = () => {
     console.log('BODY: ', body);
     console.log('ENDPOINT: ', endpoint);
 
-    await fetch(`http://localhost:3000/trip/${endpoint}`), {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(body)
+    try {
+      await axios.post(`trip/${endpoint}/`, body)
+    } catch (error) {
+      console.log(error)
     }
+    
+    
+    // await fetch(`http://localhost:3000/trip/${endpoint}`), {
+    //   method: 'POST', 
+    //   headers: {
+    //     "Content-Type": 'application/json',
+    //     "Accept": 'application/json',
+    //   },
+    //   body: JSON.stringify(body)
+    // }
+    
     if(endpoint === 'flight') {
       const newBody = Object.assign(body, {id: flights.length + 1, votes: 0})
       dispatch(updateFlights(newBody));
@@ -114,18 +125,21 @@ const DialogButton = () => {
           <div>
       <Checkbox
         {...label}
+        sx={{color: 'grey'}}
         icon={<AirplaneTicketOutlinedIcon  />}
         checkedIcon={<AirplaneTicketIcon />}
         onChange={handleChangeFlightIcon}
       />
       <Checkbox
         {...label}
+        sx={{color: 'grey'}}
         icon={<BedroomChildOutlinedIcon />} 
         checkedIcon={<BedroomChildIcon />}
         onChange={handleChangeHotelIcon}
       />
       <Checkbox
         {...label}
+        sx={{color: 'grey'}}
         icon={<LocalActivityOutlinedIcon />}
         checkedIcon={<LocalActivityIcon/>}
         onChange={handleChangeEventIcon}
@@ -209,7 +223,7 @@ const [open, setOpen] = React.useState(false);
       />
       
           </div>
-          <TextField
+          <TextField 
             autoFocus
             margin="dense"
             id="name"
